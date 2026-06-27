@@ -33,13 +33,9 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 3. Verwenden Sie kurze, aussagekräftige `alt`-Texte, zum Beispiel: `alt="Cover des Romans Die leisen Karten"`.
 4. Hinterlegen Sie später ein Social-Sharing-Bild unter `assets/images/social-sharing-placeholder.jpg` oder passen Sie die Open-Graph-Metadaten in den HTML-Dateien an.
 
-## GitHub Pages aktivieren
+## GitHub Pages
 
-Aktivieren Sie GitHub Pages in GitHub unter:
-
-**Settings → Pages → Deploy from a branch → main → /(root)**
-
-Danach veröffentlicht GitHub die Dateien direkt aus dem Repository-Root.
+GitHub Pages ist bereits über den Branch `main` und das Root-Verzeichnis `/(root)` aktiviert. Die Website benötigt keinen Build-Schritt: GitHub veröffentlicht die statischen Dateien direkt aus dem Repository-Root.
 
 ## Eigene Domain bei STRATO verbinden
 
@@ -54,6 +50,5 @@ Die Domain `hoenscheidt-publishing.de` kann später bei STRATO per DNS mit GitHu
 1. Inhalte und Buchdaten ersetzen
 2. Echte Coverbilder in `assets/images` hochladen
 3. Impressum und Datenschutz rechtlich ergänzen
-4. GitHub Pages aktivieren
-5. STRATO-DNS mit GitHub Pages verbinden
-6. HTTPS in GitHub Pages aktivieren
+4. STRATO-DNS mit GitHub Pages verbinden
+5. HTTPS in GitHub Pages prüfen oder aktivieren
