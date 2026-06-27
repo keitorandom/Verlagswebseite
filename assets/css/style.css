@@ -114,6 +114,7 @@ h3 { font-size: 1.5rem; }
 .rich-text p { margin: 0 0 1.1rem; }
 .rich-text h2 { font-size: 1.7rem; margin-top: 2.2rem; }
 .contact-box { background: var(--paper); border: 1px solid var(--border); border-radius: 1.8rem; padding: clamp(1.5rem, 4vw, 3rem); box-shadow: var(--shadow); }
+.placeholder { display: inline-block; color: var(--green); background: rgba(196, 154, 69, 0.2); border: 1px solid rgba(196, 154, 69, 0.45); border-radius: 0.45rem; padding: 0.08rem 0.35rem; }
 
 /* Footer and utility pages */
 .site-footer { background: var(--green); color: var(--paper); padding: 2rem 0; }
