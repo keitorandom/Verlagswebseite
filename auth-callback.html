@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Netlify Identity Callback | Hönscheidt Publishing</title>
+  <meta name="description" content="Verarbeitet Netlify-Identity-Einladungen, Passwort-Resets, E-Mail-Bestätigungen und OAuth-Rückleitungen für Hönscheidt Publishing.">
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="auth-callback-page">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+  <main id="main" class="auth-callback-main">
+    <section class="auth-callback-card" aria-labelledby="auth-callback-title" aria-live="polite">
+      <p class="eyebrow">Netlify Identity</p>
+      <h1 id="auth-callback-title">Zugang wird geprüft …</h1>
+      <p id="auth-callback-message">Bitte warte kurz. Der Link aus deiner E-Mail wird verarbeitet.</p>
+      <p id="auth-callback-detail" class="auth-callback-detail" hidden></p>
+      <div class="auth-callback-actions">
+        <a class="button button-primary" href="/admin/">Zum Adminbereich</a>
+        <a class="button button-outline" href="/">Zur Startseite</a>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { handleAuthCallback } from 'https://esm.sh/@netlify/identity?bundle';
+
+    const title = document.getElementById('auth-callback-title');
+    const message = document.getElementById('auth-callback-message');
+    const detail = document.getElementById('auth-callback-detail');
+
+    const tokenLabels = {
+      invite_token: 'Einladung',
+      recovery_token: 'Passwort-Reset',
+      confirmation_token: 'E-Mail-Bestätigung',
+      email_change_token: 'E-Mail-Änderung',
+      access_token: 'OAuth-Anmeldung'
+    };
+
+    const getCallbackTypeFromHash = () => {
+      const hash = window.location.hash.replace(/^#/, '');
+      const params = new URLSearchParams(hash);
+      return Object.keys(tokenLabels).find((tokenName) => params.has(tokenName));
+    };
+
+    const showDetail = (text) => {
+      detail.textContent = text;
+      detail.hidden = false;
+    };
+
+    const showSuccess = (result) => {
+      title.textContent = 'Zugang bestätigt';
+      message.textContent = 'Dein Zugang wurde bestätigt. Du kannst jetzt ein Passwort festlegen oder dich anmelden.';
+
+      const resultType = result?.type || getCallbackTypeFromHash();
+      if (resultType) {
+        showDetail(`Verarbeiteter Vorgang: ${tokenLabels[`${resultType}_token`] || tokenLabels[resultType] || resultType}.`);
+      }
+    };
+
+    const showInfo = () => {
+      title.textContent = 'Kein gültiger Callback gefunden';
+      message.textContent = 'In dieser URL wurde kein Netlify-Identity-Token gefunden. Wenn du einen Einladungs- oder Passwort-Reset-Link erhalten hast, öffne bitte den vollständigen Link aus der E-Mail.';
+    };
+
+    const showError = (error) => {
+      title.textContent = 'Callback konnte nicht verarbeitet werden';
+      message.textContent = 'Der Link konnte nicht verarbeitet werden. Bitte fordere bei Bedarf eine neue Einladung oder einen neuen Passwort-Reset-Link an.';
+      showDetail(error?.message || 'Unbekannter Fehler bei der Netlify-Identity-Verarbeitung.');
+    };
+
+    try {
+      const hasKnownCallback = Boolean(getCallbackTypeFromHash());
+      const result = await handleAuthCallback();
+
+      if (result || hasKnownCallback) {
+        showSuccess(result);
+      } else {
+        showInfo();
+      }
+    } catch (error) {
+      showError(error);
+    }
+  </script>
+</body>
+</html>

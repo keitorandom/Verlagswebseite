@@ -13,6 +13,25 @@
   <meta property="og:image:alt" content="[BITTE ERSETZEN] Social-Sharing-Bild von Hönscheidt Publishing">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    (function () {
+      var callbackTokens = ['invite_token', 'recovery_token', 'confirmation_token', 'email_change_token'];
+      var hash = window.location.hash;
+
+      if (!hash) {
+        return;
+      }
+
+      var params = new URLSearchParams(hash.slice(1));
+      var hasIdentityCallback = callbackTokens.some(function (tokenName) {
+        return params.has(tokenName);
+      });
+
+      if (hasIdentityCallback) {
+        window.location.replace('/auth-callback.html' + hash);
+      }
+    })();
+  </script>
 <!-- Privacy-friendly analytics by Plausible -->
 <script async src="https://plausible.io/js/pa-yvF1Fa0au-Iex7ikJMIqC.js"></script>
 <script>
