@@ -7,6 +7,7 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 ```text
 /
   index.html              # Startseite
+  buecher.html            # Bücherübersicht
   impressum.html          # Impressum-Vorlage
   datenschutz.html        # Datenschutz-Vorlage
   404.html                # Fehlerseite für GitHub Pages
@@ -22,16 +23,17 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 ## Inhalte ändern
 
 - Texte auf der Startseite bearbeiten Sie direkt in `index.html`.
-- Buchdaten finden Sie im Abschnitt `Aktuelle Veröffentlichungen` in `index.html`.
+- Buchdaten finden Sie im Abschnitt `Neueste Veröffentlichungen` in `index.html` und in der Übersicht `buecher.html`.
 - Links zu Buchdetails können vorerst auf den Kontaktbereich zeigen oder später durch eigene Detailseiten ersetzt werden.
 - E-Mail-Adressen und rechtliche Angaben müssen in `index.html`, `impressum.html` und `datenschutz.html` angepasst werden.
 
 ## Buchcover und Bilder ändern
 
-1. Laden Sie echte Coverbilder in `assets/images/` hoch.
-2. Ersetzen Sie in `index.html` die aktuellen Cover-Platzhalter durch `<img>`-Elemente.
-3. Verwenden Sie kurze, aussagekräftige `alt`-Texte, zum Beispiel: `alt="Cover des Romans Die leisen Karten"`.
-4. Hinterlegen Sie später ein Social-Sharing-Bild unter `assets/images/social-sharing-placeholder.jpg` oder passen Sie die Open-Graph-Metadaten in den HTML-Dateien an.
+Die Buchkarten sind bereits mit normalen HTML-Bildreferenzen vorbereitet, zum Beispiel `assets/images/vers-versa-und-vision.webp` und `assets/images/wimpernschlag.webp`. Wenn diese Dateien fehlen, zeigt das CSS automatisch eine gestaltete Platzhalterfläche innerhalb der Karte.
+
+1. Legen Sie echte Coverbilder später bei Bedarf in `assets/images/` ab.
+2. Behalten Sie kurze, aussagekräftige `alt`-Texte bei, zum Beispiel: `alt="Cover von Wimpernschlag"`.
+3. Hinterlegen Sie später ein Social-Sharing-Bild unter `assets/images/social-sharing-placeholder.jpg` oder passen Sie die Open-Graph-Metadaten in den HTML-Dateien an.
 
 ## GitHub Pages
 
@@ -52,7 +54,7 @@ Der datensparsame Plausible-Tracking-Code ist direkt im `<head>`-Bereich aller H
 ## Nächste Schritte
 
 1. Inhalte und Buchdaten ersetzen
-2. Echte Coverbilder in `assets/images` hochladen
+2. Echte Coverbilder bei Bedarf in `assets/images` ergänzen
 3. Impressum und Datenschutz rechtlich ergänzen
 4. STRATO-DNS mit GitHub Pages verbinden
 5. HTTPS in GitHub Pages prüfen oder aktivieren
