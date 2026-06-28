@@ -46,6 +46,13 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 
 Hinweis: Nach dem Speichern im CMS erzeugt Git Gateway einen Commit im Repository. Die öffentliche Website wird erst sichtbar aktualisiert, nachdem GitHub Pages diesen neuen Commit veröffentlicht hat.
 
+
+## Netlify Identity Callback
+
+Einladungs-, Passwort-Reset-, E-Mail-Bestätigungs- und E-Mail-Änderungslinks von Netlify Identity werden automatisch über `auth-callback.html` verarbeitet. Falls ein Netlify-E-Mail-Link zunächst auf die Startseite zeigt, erkennt `index.html` die Identity-Tokens im URL-Hash und leitet inklusive unverändertem Hash an `/auth-callback.html` weiter.
+
+Nach Änderungen an dieser Callback-Seite oder an der Weiterleitungslogik ist ein neuer Netlify-Deploy nötig, damit die Netlify-Domain `https://hoenscheidt-publishing-admin.netlify.app/` die aktuelle Version ausliefert.
+
 ## Buchcover und Bilder ändern
 
 Coverbilder, die über Decap CMS hochgeladen werden, landen in `assets/images/uploads/`. Wenn ein Coverbild fehlt oder nicht geladen werden kann, zeigt die Website automatisch eine gestaltete Platzhalterfläche mit dem Buchtitel.
