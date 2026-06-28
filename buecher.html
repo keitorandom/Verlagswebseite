@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bücher | Hönscheidt Publishing</title>
-  <meta name="description" content="Bücherübersicht von Hönscheidt Publishing mit aktuellen Veröffentlichungen und vorbereiteten Coverreferenzen.">
+  <meta name="description" content="Bücherübersicht von Hönscheidt Publishing mit aktuellen Veröffentlichungen, Leseproben und Kauflinks.">
   <meta property="og:title" content="Bücher | Hönscheidt Publishing">
   <meta property="og:description" content="Aktuelle Veröffentlichungen und Bücherübersicht von Hönscheidt Publishing.">
   <meta property="og:type" content="website">
@@ -46,7 +46,7 @@
       <div class="container narrow">
         <p class="eyebrow">Bücher</p>
         <h1>Veröffentlichungen im Überblick.</h1>
-        <p>Hier finden Sie die aktuellen Titel von Hönscheidt Publishing. Die Cover sind als HTML-Bildreferenzen vorbereitet und werden durch Platzhalterflächen ersetzt, falls die Dateien noch nicht vorhanden sind.</p>
+        <p>Hier finden Sie die aktuellen Titel von Hönscheidt Publishing. Cover, Beschreibungen und Leseproben werden aus den zentralen Buchdaten geladen.</p>
       </div>
     </section>
 
@@ -56,31 +56,8 @@
           <p class="eyebrow">Programm</p>
           <h2 id="book-overview-title">Neueste Veröffentlichungen</h2>
         </div>
-        <div class="book-grid book-grid-featured">
-          <article class="book-card" id="vers-versa-und-vision">
-            <div class="book-cover" data-fallback-title="Vers, Versa und Vision">
-              <img src="assets/images/vers-versa-und-vision.webp" alt="Cover von Vers, Versa und Vision" loading="lazy" onerror="this.hidden=true; this.parentElement.classList.add('is-missing');">
-              <span class="cover-fallback" aria-hidden="true">Vers, Versa und Vision</span>
-            </div>
-            <div class="book-card-body">
-              <h3>Vers, Versa und Vision</h3>
-              <p class="book-author">Hönscheidt Publishing</p>
-              <p>Ein literarischer Titel über Sprachbilder, Perspektiven und den Mut, bekannte Formen neu zu sehen.</p>
-              <a class="text-link" href="index.html#kontakt">Anfragen</a>
-            </div>
-          </article>
-          <article class="book-card" id="wimpernschlag">
-            <div class="book-cover book-cover-warm" data-fallback-title="Wimpernschlag">
-              <img src="assets/images/wimpernschlag.webp" alt="Cover von Wimpernschlag" loading="lazy" onerror="this.hidden=true; this.parentElement.classList.add('is-missing');">
-              <span class="cover-fallback" aria-hidden="true">Wimpernschlag</span>
-            </div>
-            <div class="book-card-body">
-              <h3>Wimpernschlag</h3>
-              <p class="book-author">Hönscheidt Publishing</p>
-              <p>Kurze Prosa über flüchtige Momente, stille Beobachtungen und das Nachhallen kleiner Entscheidungen.</p>
-              <a class="text-link" href="index.html#kontakt">Anfragen</a>
-            </div>
-          </article>
+        <div class="book-grid book-grid-featured book-grid-all" data-books-target="all">
+          <p class="books-loading">Bücher werden geladen …</p>
         </div>
       </div>
     </section>
