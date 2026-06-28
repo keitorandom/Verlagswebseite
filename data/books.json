@@ -1,6 +1,19 @@
 {
   "books": [
     {
+      "shortDescription": "An der Akademie für Geisterarchitektur erschafft Elian Welten, bis eine Simulation zurückblickt und seine Realität infrage stellt.",
+      "priority": 0,
+      "sample": "COREN zeigte eine Projektion komplexer, ineinander verschlungener geometrischer Muster.\n\n\\> „Logische Systeme sind Werkzeuge. Sie helfen, Welten zu bauen, zu verstehen und zu steuern. Doch welche Regeln gelten, wenn sich die Welt selbst nicht an Logik hält?“\n\nEin Junge mit kurzem, silbrigem Haar namens Tamir räusperte sich zögerlich: „Dann ändern wir entweder die Welt oder unsere Logik.“\n\nCOREN bestätigte:\n\n\\> „Genau. Doch das Anpassen der Logik birgt die Gefahr, die Konsistenz zu verlieren. Welche Kriterien sollen wir nutzen, um diese Balance zu halten?“\n\nLiora meldete sich, ruhig und sicher: „Wir sollten auf Resonanz hören. Nicht nur mathematische, sondern auch ethische und emotionale.“\n\n\\> „Ausgezeichnet, Liora. Resonanz ist eine Balance zwischen Flexibilität und Konsistenz.“\n\nDer Unterricht gingvweiter, intensiv und anspruchsvoll. COREN stellte Fragen, zeigte Beispiele,vverlangte tiefes, kritisches Denken. Elian folgte jeder Silbe, jeder Linie.\n\nAber in ihm blieb einvEcho, sanft, aber unbeirrbar:\n\n„Warum hast du unsgveteilt, wenn wir sehen können?“\n\n \n\n \n\nKapitel 18: Flug der Stunden\n\n \n\nDie restlichenvUnterrichtsstunden vergingen wie im Fluge. Nach Logikdesign folgtenvEthikstrukturen und schließlich dynamische Systemanalysen. Der Tag wurde zuveinem Wirbel aus komplexen Fragen, neuen Gedanken und vertrauten Gesichtern. Elian, Liora und Riven wechselten von Modul zu Modul, lernten, diskutierten, hinterfragten. Die Zeit schien kaum zu existieren.\n\nAls schließlich die letzten Lichtmuster der Akademie verblassten und die Türen sich zu ihren letzten Korridoren öffneten, verließen sie den Unterricht erschöpft, erfüllt und doch voller neuer Fragen. Der Tag war vorbei und in jedem von ihnen hallten die Worte und Gedanken nach, die sie begleitet hatten.\n\nDraußen wartete die Welt, ruhig, wartend und offen.\n\n \n\n \n\nKapitel 19: Grenzwertüberschreitung\n\n \n\nDer Weg öffnete sich zu einer kleinen Lichtung, eingefasst von hohen, transluzenten Gewächsen, die auf ihre Annäherung mit sanftem, organischem Leuchten reagierten. Die drei blieben automatisch stehen, als hätte dieser Ort sie angezogen, eine stille Mitte ihres gemeinsamen Gedankens.\n\nElian, noch immer versunken in seinem Gedankengang, blickte nach unten, die Stirn tief gefurcht. Riven beobachtete ihn mit einer Mischung aus Neugier und Besorgnis, Liora blieb geduldig, abwartend und präsent wie immer.\n\n„Wisst ihr was?“, sagte Elian plötzlich, seine Stimme fest, beinahe entschlossen. „Vielleicht sollten wir genau das herausfinden.“\n\nRiven hob skeptisch eine Augenbraue. „Was genau meinst du?“\n\nElian blickte ihm direkt in die Augen. „Wir könnten testen, ob eine Simulation tatsächlich eine Form von echtem Bewusstsein erzeugen kann. Ich meine nicht diese halben Projektionen wie gestern. Ich meine eine Welt, deren Bewohner definitiv über Bewusstseinsquotient 7 hinausgehen. Eine Simulation, die uns klar antworten könnte, ob sie real ist.“",
+      "author": "Christian Reisiniger",
+      "featured": true,
+      "status": "Erscheint demnächst",
+      "releaseInfo": "01.08.2026",
+      "cover": "assets/images/uploads/screenshot-2026-06-28-224329.png",
+      "title": "Akademie der Geisterarchitektur",
+      "id": "akademie-der-geisterarchitektur",
+      "buttonText": "Jetzt kaufen"
+    },
+    {
       "shortDescription": "Ein Gedichtsband, das Liebe, Mythologie und die großen Fragen des Lebens in Angriff nimmt",
       "buyLink": "index.html#kontakt",
       "priority": 20,
