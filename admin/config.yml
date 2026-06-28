@@ -1,0 +1,91 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "assets/images/uploads"
+
+locale: "de"
+
+collections:
+  - name: "content"
+    label: "Inhalte"
+    files:
+      - name: "books"
+        label: "Bücher"
+        label_singular: "Buch"
+        file: "data/books.json"
+        format: "json"
+        fields:
+          - label: "Bücher"
+            name: "books"
+            widget: "list"
+            summary: "{{fields.title}}"
+            add_to_top: true
+            fields:
+              - label: "Stabile ID / Slug"
+                name: "id"
+                widget: "string"
+                required: true
+                hint: "Kleinschreibung ohne Umlaute, Leerzeichen als Bindestriche, z. B. vers-versa-und-vision. Wird für Links wie buecher.html#vers-versa-und-vision genutzt. Nach Veröffentlichung möglichst nicht ändern."
+                pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "Bitte nur Kleinbuchstaben, Zahlen und Bindestriche verwenden."]
+              - label: "Titel"
+                name: "title"
+                widget: "string"
+                required: true
+              - label: "Autor/in"
+                name: "author"
+                widget: "string"
+                required: true
+              - label: "Coverbild"
+                name: "cover"
+                widget: "image"
+                required: false
+                hint: "Upload wird in assets/images/uploads/ gespeichert."
+              - label: "Kurzbeschreibung für die Startseiten-Karte"
+                name: "shortDescription"
+                widget: "text"
+                required: true
+                hint: "Dieser Text erscheint in der Buchkarte auf der Startseite."
+                pattern: ["^.{1,150}$", "Maximal 150 Zeichen inklusive Leerzeichen."]
+              - label: "Leseprobe"
+                name: "sample"
+                widget: "markdown"
+                required: false
+                hint: "Dieser Text erscheint auf der Bücherseite."
+              - label: "Erscheinungsstatus"
+                name: "status"
+                widget: "select"
+                options:
+                  - "Jetzt erhältlich"
+                  - "Vorbestellbar"
+                  - "Erscheint demnächst"
+                required: true
+              - label: "Erscheinungsdatum oder Veröffentlichungs-Hinweis"
+                name: "releaseInfo"
+                widget: "string"
+                required: false
+                hint: "Zum Beispiel: Erscheint im Juli 2026"
+              - label: "Kauflink"
+                name: "buyLink"
+                widget: "string"
+                required: false
+                pattern: ['^(https?://|mailto:|/|#|[A-Za-z0-9._/-]+\.html).*$', 'Bitte eine gültige URL oder einen relativen Link eingeben.']
+              - label: "Button-Text"
+                name: "buttonText"
+                widget: "string"
+                default: "Jetzt kaufen"
+                required: true
+                hint: "Bei noch nicht erschienenem Buch beispielsweise Vorbestellen oder Demnächst verfügbar."
+              - label: "Reihenfolge/Priorität"
+                name: "priority"
+                widget: "number"
+                value_type: "int"
+                default: 0
+                required: true
+                hint: "Höhere Zahlen erscheinen zuerst."
+              - label: "Sichtbarkeit auf Startseite"
+                name: "featured"
+                widget: "boolean"
+                default: true
+                required: false

@@ -1,0 +1,32 @@
+{
+  "books": [
+    {
+      "id": "vers-versa-und-vision",
+      "title": "Vers, Versa und Vision",
+      "author": "Hönscheidt Publishing",
+      "cover": "assets/images/vers-versa-und-vision.webp",
+      "shortDescription": "Ein literarischer Titel über Sprachbilder, Perspektiven und den Mut, bekannte Formen neu zu sehen.",
+      "sample": "Eine Leseprobe zu \"Vers, Versa und Vision\" wird hier künftig aus dem CMS ergänzt.",
+      "status": "Erscheint demnächst",
+      "releaseInfo": "Weitere Informationen folgen",
+      "buyLink": "index.html#kontakt",
+      "buttonText": "Anfragen",
+      "priority": 20,
+      "featured": true
+    },
+    {
+      "id": "wimpernschlag",
+      "title": "Wimpernschlag",
+      "author": "Hönscheidt Publishing",
+      "cover": "assets/images/wimpernschlag.webp",
+      "shortDescription": "Kurze Prosa über flüchtige Momente, stille Beobachtungen und das Nachhallen kleiner Entscheidungen.",
+      "sample": "Eine Leseprobe zu \"Wimpernschlag\" wird hier künftig aus dem CMS ergänzt.",
+      "status": "Erscheint demnächst",
+      "releaseInfo": "Weitere Informationen folgen",
+      "buyLink": "index.html#kontakt",
+      "buttonText": "Anfragen",
+      "priority": 10,
+      "featured": true
+    }
+  ]
+}

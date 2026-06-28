@@ -65,35 +65,12 @@
           <div>
             <p class="eyebrow">Programm</p>
             <h2 id="books-title">Neueste Veröffentlichungen</h2>
-            <p>Die aktuellen Titel von Hönscheidt Publishing – mit Coverreferenzen, die auch ohne vorhandene Bilddateien eine saubere Darstellung behalten.</p>
+            <p>Die aktuellen Titel von Hönscheidt Publishing – direkt aus den zentral gepflegten Buchdaten geladen.</p>
           </div>
           <a class="button button-outline" href="buecher.html">Alle Bücher</a>
         </div>
-        <div class="book-grid book-grid-featured" aria-label="Neueste Veröffentlichungen">
-          <article class="book-card">
-            <div class="book-cover" data-fallback-title="Vers, Versa und Vision">
-              <img src="assets/images/vers-versa-und-vision.webp" alt="Cover von Vers, Versa und Vision" loading="lazy" onerror="this.hidden=true; this.parentElement.classList.add('is-missing');">
-              <span class="cover-fallback" aria-hidden="true">Vers, Versa und Vision</span>
-            </div>
-            <div class="book-card-body">
-              <h3>Vers, Versa und Vision</h3>
-              <p class="book-author">Hönscheidt Publishing</p>
-              <p>Ein literarischer Titel über Sprachbilder, Perspektiven und den Mut, bekannte Formen neu zu sehen.</p>
-              <a class="text-link" href="buecher.html#vers-versa-und-vision">Mehr erfahren</a>
-            </div>
-          </article>
-          <article class="book-card">
-            <div class="book-cover book-cover-warm" data-fallback-title="Wimpernschlag">
-              <img src="assets/images/wimpernschlag.webp" alt="Cover von Wimpernschlag" loading="lazy" onerror="this.hidden=true; this.parentElement.classList.add('is-missing');">
-              <span class="cover-fallback" aria-hidden="true">Wimpernschlag</span>
-            </div>
-            <div class="book-card-body">
-              <h3>Wimpernschlag</h3>
-              <p class="book-author">Hönscheidt Publishing</p>
-              <p>Kurze Prosa über flüchtige Momente, stille Beobachtungen und das Nachhallen kleiner Entscheidungen.</p>
-              <a class="text-link" href="buecher.html#wimpernschlag">Mehr erfahren</a>
-            </div>
-          </article>
+        <div class="book-grid book-grid-featured" data-books-target="featured" aria-label="Neueste Veröffentlichungen">
+          <p class="books-loading">Bücher werden geladen …</p>
         </div>
       </div>
     </section>
