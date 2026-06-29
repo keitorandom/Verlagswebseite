@@ -1,115 +1,288 @@
 <!doctype html>
 <html lang="de">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manuskript einreichen | Hönscheidt Publishing</title>
-  <meta name="description" content="Reichen Sie Ihr Manuskript bei Hönscheidt Publishing ein: Formular für literarische Projekte, Datenschutz- und Einreichungshinweise.">
-  <meta property="og:title" content="Manuskript einreichen | Hönscheidt Publishing">
-  <meta property="og:description" content="Informationen und Formular für Manuskripteinreichungen bei Hönscheidt Publishing.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hoenscheidt-publishing.de/autorinnen.html">
-  <meta property="og:image" content="https://hoenscheidt-publishing.de/assets/images/social-sharing-placeholder.jpg">
-  <meta property="og:image:alt" content="[BITTE ERSETZEN] Social-Sharing-Bild von Hönscheidt Publishing">
-  <link rel="stylesheet" href="assets/css/style.css">
-<!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-yvF1Fa0au-Iex7ikJMIqC.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Zum Inhalt springen</a>
-  <header class="site-header" data-header>
-    <div class="container header-inner">
-      <!-- Hier muss das Logo rein -->
-      <a class="site-logo-placeholder" href="index.html" aria-label="Zur Startseite"></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
-        <span class="nav-toggle-line" aria-hidden="true"></span>
-        <span class="sr-only">Navigation öffnen</span>
-      </button>
-      <nav class="site-nav" id="site-navigation" aria-label="Hauptnavigation">
-        <a href="index.html">Startseite</a>
-        <a href="buecher.html">Bücher</a>
-        <a href="index.html#verlag">Über den Verlag</a>
-        <a href="autorinnen.html" aria-current="page">Für Autor:innen</a>
-        <a href="index.html#kontakt">Kontakt</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="page-hero section">
-      <div class="container narrow">
-        <p class="eyebrow">Für Autor:innen</p>
-        <h1>Manuskript einreichen</h1>
-        <p>Hönscheidt Publishing freut sich über literarische Projekte mit eigenständiger Stimme, klarer Haltung und erzählerischer Qualität. Über dieses Formular können Sie Ihr Manuskript und die wichtigsten Angaben zu Ihrem Projekt einreichen.</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manuskript einreichen | Hönscheidt Publishing</title>
+    <meta
+      name="description"
+      content="Reichen Sie Ihr Manuskript bei Hönscheidt Publishing ein: Formular für literarische Projekte, Datenschutz- und Einreichungshinweise."
+    />
+    <meta
+      property="og:title"
+      content="Manuskript einreichen | Hönscheidt Publishing"
+    />
+    <meta
+      property="og:description"
+      content="Informationen und Formular für Manuskripteinreichungen bei Hönscheidt Publishing."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://hoenscheidt-publishing.de/autorinnen.html"
+    />
+    <meta
+      property="og:image"
+      content="https://hoenscheidt-publishing.de/assets/images/social-sharing-placeholder.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="[BITTE ERSETZEN] Social-Sharing-Bild von Hönscheidt Publishing"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script
+      async
+      src="https://plausible.io/js/pa-yvF1Fa0au-Iex7ikJMIqC.js"
+    ></script>
+    <script>
+      ((window.plausible =
+        window.plausible ||
+        function () {
+          (plausible.q = plausible.q || []).push(arguments);
+        }),
+        (plausible.init =
+          plausible.init ||
+          function (i) {
+            plausible.o = i || {};
+          }));
+      plausible.init();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <header class="site-header" data-header>
+      <div class="container header-inner">
+        <!-- Hier muss das Logo rein -->
+        <a
+          class="site-logo-placeholder"
+          href="index.html"
+          aria-label="Zur Startseite"
+        ></a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+        >
+          <span class="nav-toggle-line" aria-hidden="true"></span>
+          <span class="sr-only">Navigation öffnen</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Hauptnavigation">
+          <a href="index.html">Startseite</a>
+          <a href="buecher.html">Bücher</a>
+          <a href="index.html#verlag">Über den Verlag</a>
+          <a href="autorinnen.html" aria-current="page">Für Autor:innen</a>
+          <a href="index.html#kontakt">Kontakt</a>
+        </nav>
       </div>
-    </section>
+    </header>
 
-    <section class="section" aria-labelledby="submission-form-title">
-      <div class="container submission-layout">
-        <form class="submission-form" name="manuskript-einreichung" method="post" enctype="multipart/form-data" data-manuscript-form data-endpoint="https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung" novalidate>
-          <input type="hidden" name="form-name" value="manuskript-einreichung">
-          <p class="honeypot"><label>Nicht ausfüllen: <input name="bot-field" autocomplete="off"></label></p>
-          <div class="form-intro">
-            <p class="eyebrow">Einreichungsformular</p>
-            <h2 id="submission-form-title">Ihre Projektdaten</h2>
-            <p>Pflichtfelder sind mit <span aria-hidden="true">*</span><span class="sr-only">Stern</span> gekennzeichnet. Erlaubte Upload-Dateitypen: PDF, DOC, DOCX. Maximale Dateigröße: 8 MB.</p>
-          </div>
-          <div class="form-grid">
-            <label>Vor- und Nachname <span aria-hidden="true">*</span><input type="text" name="name" autocomplete="name" required></label>
-            <label>E-Mail-Adresse <span aria-hidden="true">*</span><input type="email" name="email" autocomplete="email" required></label>
-            <label>Telefonnummer<input type="tel" name="telefon" autocomplete="tel"></label>
-            <label>Titel des Manuskripts <span aria-hidden="true">*</span><input type="text" name="manuskript-titel" required></label>
-            <label>Genre oder Kategorie <span aria-hidden="true">*</span><input type="text" name="genre" required></label>
-            <label>Umfang in Normseiten oder Wörtern<input type="text" name="umfang"></label>
-          </div>
-          <label>Kurze Projektbeschreibung <span aria-hidden="true">*</span><textarea name="projektbeschreibung" rows="7" required></textarea></label>
-          <label>Kurze Autor:innenvita<textarea name="vita" rows="5"></textarea></label>
-          <label>Link zu Website oder Social-Media-Profil<input type="url" name="profil-link" placeholder="https://"></label>
-          <label>Manuskript-Datei <span aria-hidden="true">*</span><input type="file" name="manuskript-datei" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required data-file-input aria-describedby="file-help file-error"></label>
-          <p id="file-help" class="form-help">Bitte laden Sie genau eine Datei hoch. Erlaubt sind PDF, DOC und DOCX bis maximal 8 MB.</p>
-          <p id="file-error" class="form-error" data-file-error role="alert" aria-live="polite"></p>
-          <label class="checkbox-label"><input type="checkbox" name="datenschutz-hinweis-gelesen" required> <span>Ich habe die Hinweise zur Verarbeitung meiner Daten im Rahmen der Manuskripteinreichung gelesen.</span></label>
-          <button class="button button-primary" type="submit" data-submit-button>Manuskript einreichen</button>
-          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-        </form>
+    <main id="main">
+      <section class="page-hero section">
+        <div class="container narrow">
+          <p class="eyebrow">Für Autor:innen</p>
+          <h1>Manuskript einreichen</h1>
+          <p>
+            Hönscheidt Publishing freut sich über literarische Projekte mit
+            eigenständiger Stimme, klarer Haltung und erzählerischer Qualität.
+            Über dieses Formular können Sie Ihr Manuskript und die wichtigsten
+            Angaben zu Ihrem Projekt einreichen.
+          </p>
+        </div>
+      </section>
 
-        <aside class="success-message" data-success-message tabindex="-1" hidden>
-          <p class="eyebrow">Übermittelt</p>
-          <h2>Vielen Dank.</h2>
-          <p>Ihre Einreichung wurde übermittelt. Wir prüfen Ihr Manuskript sorgfältig und melden uns bei Interesse.</p>
-        </aside>
+      <section class="section" aria-labelledby="submission-form-title">
+        <div class="container submission-layout">
+          <form
+            class="submission-form"
+            name="manuskript-einreichung"
+            method="post"
+            enctype="multipart/form-data"
+            data-manuscript-form
+            data-endpoint="https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung"
+            novalidate
+          >
+            <input
+              type="hidden"
+              name="form-name"
+              value="manuskript-einreichung"
+            />
+            <p class="honeypot">
+              <label
+                >Nicht ausfüllen: <input name="bot-field" autocomplete="off"
+              /></label>
+            </p>
+            <div class="form-intro">
+              <p class="eyebrow">Einreichungsformular</p>
+              <h2 id="submission-form-title">Ihre Projektdaten</h2>
+              <p>
+                Pflichtfelder sind mit <span aria-hidden="true">*</span
+                ><span class="sr-only">Stern</span> gekennzeichnet. Erlaubte
+                Upload-Dateitypen: PDF, DOC, DOCX. Maximale Dateigröße: 8 MB.
+              </p>
+            </div>
+            <div class="form-grid">
+              <label
+                >Vor- und Nachname <span aria-hidden="true">*</span
+                ><input type="text" name="name" autocomplete="name" required
+              /></label>
+              <label
+                >E-Mail-Adresse <span aria-hidden="true">*</span
+                ><input type="email" name="email" autocomplete="email" required
+              /></label>
+              <label
+                >Telefonnummer<input
+                  type="tel"
+                  name="telefon"
+                  autocomplete="tel"
+              /></label>
+              <label
+                >Titel des Manuskripts <span aria-hidden="true">*</span
+                ><input type="text" name="manuskript-titel" required
+              /></label>
+              <label
+                >Genre oder Kategorie <span aria-hidden="true">*</span
+                ><input type="text" name="genre" required
+              /></label>
+              <label
+                >Umfang in Normseiten oder Wörtern<input
+                  type="text"
+                  name="umfang"
+              /></label>
+            </div>
+            <label
+              >Kurze Projektbeschreibung <span aria-hidden="true">*</span
+              ><textarea
+                name="projektbeschreibung"
+                rows="7"
+                required
+              ></textarea>
+            </label>
+            <label
+              >Kurze Autor:innenvita<textarea name="vita" rows="5"></textarea>
+            </label>
+            <label
+              >Link zu Website oder Social-Media-Profil<input
+                type="url"
+                name="profil-link"
+                placeholder="https://"
+            /></label>
+            <label
+              >Manuskript-Datei <span aria-hidden="true">*</span
+              ><input
+                type="file"
+                name="manuskript-datei"
+                accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                required
+                data-file-input
+                aria-describedby="file-help file-error"
+            /></label>
+            <p id="file-help" class="form-help">
+              Bitte laden Sie genau eine Datei hoch. Erlaubt sind PDF, DOC und
+              DOCX bis maximal 8 MB.
+            </p>
+            <p
+              id="file-error"
+              class="form-error"
+              data-file-error
+              role="alert"
+              aria-live="polite"
+            ></p>
+            <label class="checkbox-label"
+              ><input
+                type="checkbox"
+                name="datenschutz-hinweis-gelesen"
+                required
+              />
+              <span
+                >Ich habe die Hinweise zur Verarbeitung meiner Daten im Rahmen
+                der Manuskripteinreichung gelesen.</span
+              ></label
+            >
+            <button
+              class="button button-primary"
+              type="submit"
+              data-submit-button
+            >
+              Manuskript einreichen
+            </button>
+            <p
+              class="form-status"
+              data-form-status
+              role="status"
+              aria-live="polite"
+            ></p>
+          </form>
+
+          <aside
+            class="success-message"
+            data-success-message
+            tabindex="-1"
+            hidden
+          >
+            <p class="eyebrow">Übermittelt</p>
+            <h2>Vielen Dank.</h2>
+            <p>
+              Ihre Einreichung wurde übermittelt. Wir prüfen Ihr Manuskript
+              sorgfältig und melden uns bei Interesse.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="section section-muted"
+        aria-labelledby="privacy-submission-title"
+      >
+        <div class="container narrow rich-text notice-box">
+          <h2 id="privacy-submission-title">
+            Hinweise zu Datenschutz und Manuskripteinreichungen
+          </h2>
+          <p>
+            <strong>[RECHTLICH PRÜFEN]</strong> Die im Rahmen der Einreichung
+            übermittelten Kontaktdaten, Projektinformationen und
+            Manuskriptdateien werden ausschließlich zur Prüfung Ihrer
+            Einreichung verarbeitet. Kommt eine Zusammenarbeit nicht infrage,
+            werden die Unterlagen nach Abschluss der Prüfung gelöscht. Besteht
+            Interesse an einer Zusammenarbeit, werden die weiteren Schritte und
+            eine mögliche Verarbeitung Ihrer Daten schriftlich mit Ihnen
+            abgestimmt. Kommt innerhalb von 60 Tagen nach Einreichung kein
+            Vertrag zustande, werden die Unterlagen spätestens nach Ablauf
+            dieser Frist datenschutzkonform gelöscht, sofern keine gesetzliche
+            Aufbewahrungspflicht oder eine ausdrücklich vereinbarte weitere
+            Speicherung besteht.
+          </p>
+          <p>
+            Bitte reichen Sie nur Texte ein, an denen Sie die erforderlichen
+            Rechte besitzen. Mit der Einreichung entsteht kein Anspruch auf
+            Veröffentlichung oder Rückmeldung.
+          </p>
+          <h3>
+            Mit folgenden Autor:innen haben wir bereits zusammengearbeitet:
+          </h3>
+          <ul class="author-placeholder-list">
+            <li>[AUTOR:IN 1]</li>
+            <li>[AUTOR:IN 2]</li>
+            <li>[AUTOR:IN 3]</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          &copy; <span data-current-year>2026</span> Hönscheidt Publishing. Alle
+          Rechte vorbehalten.
+        </p>
+        <nav aria-label="Rechtliche Links">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="autorinnen.html" aria-current="page">Für Autor:innen</a>
+        </nav>
       </div>
-    </section>
-
-    <section class="section section-muted" aria-labelledby="privacy-submission-title">
-      <div class="container narrow rich-text notice-box">
-        <h2 id="privacy-submission-title">Hinweise zu Datenschutz und Manuskripteinreichungen</h2>
-        <p><strong>[RECHTLICH PRÜFEN]</strong> Die im Rahmen der Einreichung übermittelten Kontaktdaten, Projektinformationen und Manuskriptdateien werden ausschließlich zur Prüfung Ihrer Einreichung verarbeitet. Kommt eine Zusammenarbeit nicht infrage, werden die Unterlagen nach Abschluss der Prüfung gelöscht. Besteht Interesse an einer Zusammenarbeit, werden die weiteren Schritte und eine mögliche Verarbeitung Ihrer Daten schriftlich mit Ihnen abgestimmt. Kommt innerhalb von 60 Tagen nach Einreichung kein Vertrag zustande, werden die Unterlagen spätestens nach Ablauf dieser Frist datenschutzkonform gelöscht, sofern keine gesetzliche Aufbewahrungspflicht oder eine ausdrücklich vereinbarte weitere Speicherung besteht.</p>
-        <p>Bitte reichen Sie nur Texte ein, an denen Sie die erforderlichen Rechte besitzen. Mit der Einreichung entsteht kein Anspruch auf Veröffentlichung oder Rückmeldung.</p>
-        <h3>Mit folgenden Autor:innen haben wir bereits zusammengearbeitet:</h3>
-        <ul class="author-placeholder-list">
-          <li>[AUTOR:IN 1]</li>
-          <li>[AUTOR:IN 2]</li>
-          <li>[AUTOR:IN 3]</li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; <span data-current-year>2026</span> Hönscheidt Publishing. Alle Rechte vorbehalten.</p>
-      <nav aria-label="Rechtliche Links">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="autorinnen.html" aria-current="page">Für Autor:innen</a>
-      </nav>
-    </div>
-  </footer>
-  <script src="assets/js/main.js" defer></script>
-</body>
+    </footer>
+    <script src="assets/js/main.js" defer></script>
+  </body>
 </html>
