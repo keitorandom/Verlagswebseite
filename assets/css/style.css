@@ -11,12 +11,58 @@
   --gold-dark: #8a6727;
   --ink: #3e4245;
   --muted: #62686b;
-  --red: #b51e23;
-  --red-dark: #871419;
   --border: rgba(62, 66, 69, 0.18);
   --shadow: 0 1.2rem 3rem rgba(62, 66, 69, 0.14);
-  --serif: "Playfair Display", Georgia, serif;
-  --sans: "Inter", Arial, sans-serif;
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --sans: "Inter", Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/inter-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../fonts/playfair-display-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../fonts/playfair-display-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 * { box-sizing: border-box; }
@@ -305,7 +351,7 @@ h3 { font-size: 1.5rem; }
 .submission-form input:hover,
 .submission-form textarea:hover { border-color: rgba(62, 66, 69, 0.38); }
 .form-help { color: var(--muted); margin: -0.5rem 0 1rem; }
-.form-error { color: var(--red-dark); font-weight: 800; min-height: 1.5rem; margin: -0.5rem 0 1rem; }
+.form-error { color: var(--gold-dark); font-weight: 800; min-height: 1.5rem; margin: -0.5rem 0 1rem; }
 .checkbox-label { grid-template-columns: auto 1fr; align-items: start; font-weight: 700; }
 .checkbox-label input { width: auto; margin-top: 0.35rem; accent-color: var(--green); }
 .honeypot { display: none; }
@@ -320,4 +366,63 @@ h3 { font-size: 1.5rem; }
 @media (max-width: 680px) {
   .form-grid { grid-template-columns: 1fr; }
   .brand-logo-wrap { width: min(12rem, 52vw); }
+}
+
+/* Targeted interface color fixes: keep visible controls calm and anthracite. */
+.submission-form .button-primary {
+  background: #3E4245;
+  border: 1px solid rgba(62, 66, 69, 0.65);
+  border-radius: 0.55rem;
+  box-shadow: none;
+  color: #FBF6EC;
+  padding: 0.85rem 1.2rem;
+}
+
+.submission-form .button-primary:hover {
+  background: #4B5053;
+  border-color: rgba(201, 164, 91, 0.55);
+  color: #FBF6EC;
+}
+
+.submission-form .button-primary:focus-visible {
+  outline: 3px solid #C9A45B;
+  outline-offset: 4px;
+}
+
+.book-card .text-link,
+.book-card .text-link:visited {
+  color: #3E4245;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: rgba(62, 66, 69, 0.42);
+  text-underline-offset: 0.22em;
+}
+
+.book-card .text-link:hover {
+  color: #3E4245;
+  text-decoration: underline;
+  text-decoration-color: #C9A45B;
+}
+
+.book-sample summary {
+  color: #3E4245;
+  cursor: pointer;
+  font-weight: 800;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.22em;
+}
+
+.book-sample summary::marker {
+  color: #8A6727;
+}
+
+.book-sample summary:hover {
+  color: #3E4245;
+  text-decoration: underline;
+  text-decoration-color: #C9A45B;
+}
+
+.book-sample summary:focus-visible {
+  outline: 3px solid #C9A45B;
+  outline-offset: 4px;
 }

@@ -21,7 +21,9 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
   sitemap.xml                   # Sitemap mit den wichtigsten Seiten
   .nojekyll                     # Liefert Dateien in GitHub Pages unverändert aus
   assets/
-    css/style.css               # Gestaltung und responsive Layouts
+    css/style.css               # Gestaltung, lokale Font-Einbindung und responsive Layouts
+    fonts/                      # Lokale WOFF2-Schriftdateien für Inter und Playfair Display
+      README.md                 # Liste der hochzuladenden Schriftdateien
     js/main.js                  # Mobile Navigation und Buch-Rendering
     images/
       README.md                 # Hinweise für spätere Bilder
@@ -55,6 +57,21 @@ Einladungs-, Passwort-Reset-, E-Mail-Bestätigungs- und E-Mail-Änderungslinks v
 
 Nach Änderungen an dieser Callback-Seite oder an der Weiterleitungslogik ist ein neuer Netlify-Deploy nötig, damit die Netlify-Domain `https://hoenscheidt-publishing-admin.netlify.app/` die aktuelle Version ausliefert.
 
+## Lokale Schriftarten
+
+Externe Google-Fonts-Links wurden aus den öffentlichen HTML-Seiten entfernt. Die Website ist in `assets/css/style.css` stattdessen auf lokale `@font-face`-Regeln vorbereitet und verwendet für Überschriften weiterhin Playfair Display sowie für Fließtext Inter, jeweils mit sicheren Fallback-Schriften.
+
+Bitte laden Sie die folgenden echten WOFF2-Dateien nach `assets/fonts/` hoch; es wurden bewusst keine leeren oder falschen Binärdateien angelegt:
+
+- `inter-regular.woff2`
+- `inter-medium.woff2`
+- `inter-semibold.woff2`
+- `inter-bold.woff2`
+- `playfair-display-semibold.woff2`
+- `playfair-display-bold.woff2`
+
+Nach der Umstellung darf die Datenschutzerklärung keine externe Verbindung zu Google Fonts mehr behaupten. Der entsprechende Abschnitt in `datenschutz.html` ist bereits auf lokale Schriftauslieferung umgestellt und weiterhin mit `[RECHTLICH PRÜFEN]` markiert.
+
 ## Firmenlogo und Manuskripteinreichungen
 
 - Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Bis dahin zeigt der Header einen textbasierten Fallback.
@@ -84,7 +101,7 @@ Der datensparsame Plausible-Tracking-Code ist direkt im `<head>`-Bereich aller H
 
 ## Rechtlicher Hinweis
 
-`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, Google-Fonts-Einbindung, Netlify Forms, Manuskripteinreichungen und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
+`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, lokale Schriftauslieferung, Netlify Forms, Manuskripteinreichungen und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
 
 ## Nächste Schritte
 
