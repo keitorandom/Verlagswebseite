@@ -29,7 +29,7 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
       README.md                 # Hinweise für spätere Bilder
       hoenscheidt-publishing-logo.png # Firmenlogo, später manuell hochladen
       uploads/.gitkeep          # Zielordner für CMS-Coveruploads
-  netlify/functions/            # Netlify Function für Manuskripteinreichungen
+  netlify/functions/            # Netlify Functions für Manuskripteinreichungen und tägliche Löschung
   netlify.toml                   # Minimale Netlify-Konfiguration für Functions
   package.json                   # Dependencies für Netlify Functions
 ```
@@ -68,17 +68,23 @@ Der Ordner `assets/fonts/` ist nur für eine spätere lokale Schrifteinbindung v
 
 Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten Schrift-Fallbacks und bleibt mit `[RECHTLICH PRÜFEN]` markiert.
 
-## Firmenlogo und Manuskripteinreichungen
+## Firmenlogo
 
 - Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Der vorbereitete Logo-Bereich ist im Code mit `<!-- Hier muss das Logo rein -->` markiert; bis zum Upload bleibt der Header-Bereich als neutraler Platzhalter ohne sichtbaren Ersatztext frei.
+
+## Manuskripteinreichungen und Löschung
+
 - Die öffentliche Website bleibt GitHub Pages unter `https://hoenscheidt-publishing.de`. Die Domain soll nicht auf Netlify umziehen.
 - Adminbereich, Decap CMS, Netlify Identity, Netlify Functions und Netlify Blobs laufen weiterhin im Hintergrund über das Netlify-Projekt `https://hoenscheidt-publishing-admin.netlify.app/`.
 - Das Formular in `autorinnen.html` bleibt für Besucher auf `https://hoenscheidt-publishing.de/autorinnen.html` und sendet die Daten per JavaScript im Hintergrund an die Function `/.netlify/functions/manuskript-einreichung`. Es gibt keine Besucher-Weiterleitung auf eine `netlify.app`-Adresse.
-- Einreichungen werden nicht in GitHub gespeichert. Manuskriptdateien werden im Netlify-Blob-Store `manuscript-files` mit zufälliger UUID gespeichert; Metadaten werden getrennt im Store `manuscript-metadata` abgelegt. Es wird keine öffentliche Download-URL erzeugt.
-- Eingegangene Daten prüfen Sie im Netlify-Dashboard des Admin-Projekts unter **Blobs** beziehungsweise über geschützte interne Tools, nicht über GitHub und nicht über Netlify Forms.
-- Das gespeicherte Löschdatum liegt 60 Tage nach der Einreichung. Der automatische Löschjob wird erst in einem nächsten PR ergänzt; bis dahin muss die Löschung organisatorisch beziehungsweise manuell kontrolliert werden.
+- Einreichungen werden nicht in GitHub gespeichert. Manuskriptdateien werden im Netlify-Blob-Store `manuscript-files` mit zufälliger UUID gespeichert; Metadaten werden getrennt im Store `manuscript-metadata` abgelegt.
+- Es werden keine öffentlichen Download-Links oder öffentlichen Routen zum Abruf von Manuskriptdateien erzeugt. Eingegangene Daten prüfen Sie im Netlify-Dashboard des Admin-Projekts unter **Blobs** beziehungsweise über geschützte interne Tools, nicht über GitHub und nicht über Netlify Forms.
+- Das gespeicherte Löschdatum liegt 60 Tage nach der Einreichung. Die Scheduled Function `loesche-abgelaufene-manuskripte` läuft täglich über Netlify und löscht Einreichungen, deren gespeichertes Löschdatum eindeutig abgelaufen ist, aus `manuscript-files` und `manuscript-metadata`.
+- Einreichungen ohne Löschdatum oder mit ungültigem Löschdatum werden nicht automatisch gelöscht; der Löschjob schreibt dafür nur technische Logs ohne Namen, E-Mail-Adressen, Manuskripttitel oder andere personenbezogene Angaben.
+- Der Löschjob sollte regelmäßig im Netlify-Dashboard kontrolliert werden. Prüfen Sie dort insbesondere, ob die Scheduled Function registriert ist, täglich ausgeführt wird und keine technischen Fehler meldet.
+- Bei Interesse an einer Zusammenarbeit müssen Daten, Fristen, Kontaktaufnahme und weitere Aufbewahrung organisatorisch manuell geprüft werden. Der Status `neu` wird durch den Löschjob nicht verändert, solange das Löschdatum noch nicht erreicht ist.
+- Rechtliche Texte und tatsächliche Löschprozesse müssen weiterhin rechtlich geprüft werden. Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
 - Fehler beim Formular erkennen Besucher am Statusbereich direkt unter dem Absende-Button. In Netlify prüfen Sie zusätzlich die Function-Logs, die bewusst keine personenbezogenen Daten ausgeben sollen.
-- Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
 
 ### Netlify-Deploy-Einstellungen für Functions
 
@@ -87,8 +93,9 @@ Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten
 - Publish directory: `.`
 - Functions directory: `netlify/functions`
 - Keine Secrets oder Zugangsdaten im Repository speichern.
-- Nach dem Merge einen Netlify-Deploy auslösen, damit die Function und Dependencies (`@netlify/blobs`, `@netlify/functions`, `busboy`) installiert werden.
+- Nach dem Merge einen Netlify-Deploy auslösen, damit die Functions und Dependencies (`@netlify/blobs`, `@netlify/functions`, `busboy`) installiert werden.
 - Prüfen, dass die Function-URL `https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung` erreichbar ist und CORS nur `https://hoenscheidt-publishing.de`, `https://www.hoenscheidt-publishing.de` sowie lokale Entwicklungs-Origins zulässt.
+- Prüfen, dass die Scheduled Function `loesche-abgelaufene-manuskripte` im Netlify-Dashboard als täglicher Job registriert ist.
 - Das einfache serverseitige Rate Limit erlaubt maximal 3 Einreichungen pro IP-Hash pro Stunde. Es speichert keine rohe IP-Adresse und ist nur eine grundlegende Anti-Spam-Maßnahme, kein vollständiger DDoS-Schutz.
 
 ### Formular testen
@@ -98,6 +105,14 @@ Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten
 3. Testen Sie eine zu große oder falsche Datei und kontrollieren Sie, dass eine sachliche Fehlermeldung angezeigt wird.
 4. Prüfen Sie im Netlify-Dashboard des Admin-Projekts die Stores `manuscript-files` und `manuscript-metadata`. Manuskripte dürfen nicht in GitHub und nicht über eine öffentliche Download-URL auftauchen.
 5. Testen Sie bei Bedarf lokal mit Netlify Dev über einen erlaubten localhost-Origin.
+
+### Checkliste nach Merge
+
+1. Netlify-Deploy nach Merge prüfen
+2. Function `manuskript-einreichung` testen
+3. Scheduled Function im Netlify-Dashboard prüfen
+4. Testeinreichung nach Abschluss manuell entfernen
+5. Logs auf technische Fehler prüfen
 
 ## Buchcover und Bilder ändern
 
