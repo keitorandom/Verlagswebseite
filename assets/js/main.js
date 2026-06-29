@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     target.textContent = new Date().getFullYear().toString();
   });
 
+  initializeBrandLogos();
   renderBookSections();
 
   if (!toggle || !navigation) {
@@ -197,4 +198,73 @@ function createElement(tagName, options = {}, text = '') {
     element.textContent = text;
   }
   return element;
+}
+
+const MAX_MANUSCRIPT_SIZE = 8 * 1024 * 1024;
+const ALLOWED_MANUSCRIPT_EXTENSIONS = ['pdf', 'doc', 'docx'];
+
+function initializeManuscriptForm() {
+  const form = document.querySelector('[data-manuscript-form]');
+  if (!form) {
+    return;
+  }
+
+  const fileInput = form.querySelector('[data-file-input]');
+  const fileError = form.querySelector('[data-file-error]');
+  const successMessage = document.querySelector('[data-success-message]');
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.get('success') === 'true' && successMessage) {
+    successMessage.hidden = false;
+    successMessage.focus();
+  }
+
+  function validateFile() {
+    if (!fileInput || !fileError) {
+      return true;
+    }
+
+    const file = fileInput.files && fileInput.files[0];
+    fileError.textContent = '';
+    fileInput.setCustomValidity('');
+
+    if (!file) {
+      return true;
+    }
+
+    const extension = file.name.split('.').pop().toLowerCase();
+    if (!ALLOWED_MANUSCRIPT_EXTENSIONS.includes(extension)) {
+      const message = 'Bitte laden Sie eine Datei im Format PDF, DOC oder DOCX hoch.';
+      fileError.textContent = message;
+      fileInput.setCustomValidity(message);
+      return false;
+    }
+
+    if (file.size > MAX_MANUSCRIPT_SIZE) {
+      const message = 'Die Manuskript-Datei ist zu groß. Bitte laden Sie eine Datei mit maximal 8 MB hoch.';
+      fileError.textContent = message;
+      fileInput.setCustomValidity(message);
+      return false;
+    }
+
+    return true;
+  }
+
+  fileInput?.addEventListener('change', validateFile);
+  form.addEventListener('submit', (event) => {
+    if (!validateFile() || !form.checkValidity()) {
+      event.preventDefault();
+      form.reportValidity();
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initializeManuscriptForm);
+
+function initializeBrandLogos() {
+  document.querySelectorAll('.brand-logo').forEach((logo) => {
+    logo.addEventListener('error', () => {
+      logo.hidden = true;
+    });
+  });
 }

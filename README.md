@@ -8,6 +8,7 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 /
   index.html                    # Startseite
   buecher.html                  # Bücherübersicht mit Leseproben
+  autorinnen.html               # Manuskripteinreichung über Netlify Forms
   admin/
     index.html                  # Decap-CMS-Adminbereich unter /admin/
     config.yml                  # CMS-Konfiguration für Netlify Identity + Git Gateway
@@ -24,6 +25,7 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
     js/main.js                  # Mobile Navigation und Buch-Rendering
     images/
       README.md                 # Hinweise für spätere Bilder
+      hoenscheidt-publishing-logo.png # Firmenlogo, später manuell hochladen
       uploads/.gitkeep          # Zielordner für CMS-Coveruploads
 ```
 
@@ -53,6 +55,13 @@ Einladungs-, Passwort-Reset-, E-Mail-Bestätigungs- und E-Mail-Änderungslinks v
 
 Nach Änderungen an dieser Callback-Seite oder an der Weiterleitungslogik ist ein neuer Netlify-Deploy nötig, damit die Netlify-Domain `https://hoenscheidt-publishing-admin.netlify.app/` die aktuelle Version ausliefert.
 
+## Firmenlogo und Manuskripteinreichungen
+
+- Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Bis dahin zeigt der Header einen textbasierten Fallback.
+- Manuskripteinreichungen aus `autorinnen.html` werden über Netlify Forms verarbeitet und erscheinen im Netlify-Dashboard unter **Forms** für das Projekt `https://hoenscheidt-publishing-admin.netlify.app/`.
+- Abgelehnte oder abgelaufene Einreichungen müssen regelmäßig manuell im Netlify-Dashboard gelöscht werden, insbesondere hochgeladene Manuskriptdateien.
+- Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
+
 ## Buchcover und Bilder ändern
 
 Coverbilder, die über Decap CMS hochgeladen werden, landen in `assets/images/uploads/`. Wenn ein Coverbild fehlt oder nicht geladen werden kann, zeigt die Website automatisch eine gestaltete Platzhalterfläche mit dem Buchtitel.
@@ -75,7 +84,7 @@ Der datensparsame Plausible-Tracking-Code ist direkt im `<head>`-Bereich aller H
 
 ## Rechtlicher Hinweis
 
-`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, Google-Fonts-Einbindung und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
+`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, Google-Fonts-Einbindung, Netlify Forms, Manuskripteinreichungen und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
 
 ## Nächste Schritte
 
