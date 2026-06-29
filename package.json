@@ -1,0 +1,14 @@
+{
+  "name": "hoenscheidt-publishing-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"Building Netlify Functions\"",
+    "check": "node --check netlify/functions/manuskript-einreichung.mjs && node --check netlify/functions/loesche-abgelaufene-manuskripte.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^9.1.0",
+    "@netlify/functions": "^4.2.5",
+    "busboy": "^1.6.0"
+  }
+}

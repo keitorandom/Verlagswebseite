@@ -163,9 +163,106 @@ function createSampleDetails(book) {
   const details = createElement('details', { className: 'book-sample' });
   details.append(
     createElement('summary', {}, 'Leseprobe'),
-    createElement('div', { className: 'book-sample-text' }, book.sample || 'Eine Leseprobe wird ergänzt.')
+    createMarkdownSample(book.sample || 'Eine Leseprobe wird ergänzt.')
   );
   return details;
+}
+
+function createMarkdownSample(markdown) {
+  const container = createElement('div', { className: 'book-sample-text' });
+  const lines = String(markdown).replace(/\r\n?/g, '\n').split('\n');
+  let index = 0;
+
+  function appendInline(parent, text) {
+    const pattern = /(\*\*([^*]+)\*\*|\*([^*]+)\*)/g;
+    let lastIndex = 0;
+    let match;
+
+    while ((match = pattern.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        parent.append(document.createTextNode(text.slice(lastIndex, match.index)));
+      }
+
+      const tagName = match[2] ? 'strong' : 'em';
+      const element = document.createElement(tagName);
+      element.textContent = match[2] || match[3] || '';
+      parent.append(element);
+      lastIndex = pattern.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      parent.append(document.createTextNode(text.slice(lastIndex)));
+    }
+  }
+
+  function appendParagraph(text) {
+    const paragraph = document.createElement('p');
+    appendInline(paragraph, text.trim());
+    container.append(paragraph);
+  }
+
+  while (index < lines.length) {
+    const line = lines[index];
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      index += 1;
+      continue;
+    }
+
+    const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      const headingElement = document.createElement(`h${heading[1].length + 3}`);
+      appendInline(headingElement, heading[2]);
+      container.append(headingElement);
+      index += 1;
+      continue;
+    }
+
+    if (trimmed.startsWith('>')) {
+      const quote = document.createElement('blockquote');
+      const quoteLines = [];
+      while (index < lines.length && lines[index].trim().startsWith('>')) {
+        quoteLines.push(lines[index].trim().replace(/^>\s?/, ''));
+        index += 1;
+      }
+      appendInline(quote, quoteLines.join(' '));
+      container.append(quote);
+      continue;
+    }
+
+    const unordered = trimmed.match(/^-\s+(.+)$/);
+    const ordered = trimmed.match(/^\d+\.\s+(.+)$/);
+    if (unordered || ordered) {
+      const list = document.createElement(unordered ? 'ul' : 'ol');
+      const itemPattern = unordered ? /^-\s+(.+)$/ : /^\d+\.\s+(.+)$/;
+      while (index < lines.length) {
+        const itemMatch = lines[index].trim().match(itemPattern);
+        if (!itemMatch) {
+          break;
+        }
+        const item = document.createElement('li');
+        appendInline(item, itemMatch[1]);
+        list.append(item);
+        index += 1;
+      }
+      container.append(list);
+      continue;
+    }
+
+    const paragraphLines = [];
+    while (index < lines.length) {
+      const current = lines[index].trim();
+      if (!current || /^(#{1,3})\s+/.test(current) || current.startsWith('>') || /^-\s+/.test(current) || /^\d+\.\s+/.test(current)) {
+        break;
+      }
+      paragraphLines.push(current);
+      index += 1;
+    }
+    appendParagraph(paragraphLines.join(' '));
+  }
+
+  return container;
 }
 
 function getBookId(book) {
@@ -250,11 +347,55 @@ function initializeManuscriptForm() {
     return true;
   }
 
+  const status = form.querySelector('[data-form-status]');
+  const submitButton = form.querySelector('[data-submit-button]');
+  const endpoint = form.dataset.endpoint;
+
+  function setStatus(message, type = 'info') {
+    if (!status) {
+      return;
+    }
+    status.textContent = message;
+    status.dataset.status = type;
+  }
+
   fileInput?.addEventListener('change', validateFile);
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
     if (!validateFile() || !form.checkValidity()) {
-      event.preventDefault();
       form.reportValidity();
+      setStatus('Bitte prüfen Sie die markierten Pflichtfelder.', 'error');
+      return;
+    }
+
+    if (!endpoint || !endpoint.startsWith('https://')) {
+      setStatus('Die Einreichung ist derzeit nicht korrekt konfiguriert. Bitte versuchen Sie es später erneut.', 'error');
+      return;
+    }
+
+    submitButton.disabled = true;
+    setStatus('Ihre Einreichung wird übermittelt …', 'loading');
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: new FormData(form)
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Die Einreichung konnte nicht übermittelt werden. Bitte versuchen Sie es später erneut.');
+      }
+
+      form.reset();
+      setStatus('Vielen Dank. Ihre Einreichung wurde übermittelt. Wir prüfen Ihr Manuskript sorgfältig und melden uns bei Interesse.', 'success');
+      successMessage?.removeAttribute('hidden');
+      successMessage?.focus();
+    } catch (error) {
+      setStatus(error.message || 'Die Einreichung konnte nicht übermittelt werden. Bitte versuchen Sie es später erneut.', 'error');
+    } finally {
+      submitButton.disabled = false;
     }
   });
 }

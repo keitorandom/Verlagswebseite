@@ -1,12 +1,10 @@
-# Lokale Schriftdateien
+# Lokale Schriftarten (optional)
 
-Bitte laden Sie die folgenden WOFF2-Dateien in diesen Ordner hoch, bevor die Website veröffentlicht wird:
+Aktuell verwendet die Website ausschließlich datenschutzfreundliche Systemschriften:
 
-- `inter-regular.woff2`
-- `inter-medium.woff2`
-- `inter-semibold.woff2`
-- `inter-bold.woff2`
-- `playfair-display-semibold.woff2`
-- `playfair-display-bold.woff2`
+- Überschriften: `Georgia`, `"Times New Roman"`, `serif`
+- Fließtext: `Arial`, `Helvetica`, `sans-serif`
 
-Die CSS-Datei `assets/css/style.css` ist bereits auf lokale `@font-face`-Regeln vorbereitet. Es werden bewusst keine Platzhalter- oder leeren Font-Dateien eingecheckt. Solange die Dateien fehlen, greifen die sicheren System-Fallbacks `Arial, Helvetica, sans-serif` und `Georgia, "Times New Roman", serif`.
+Wenn später eigene Webfonts genutzt werden sollen, legen Sie ausschließlich selbst gehostete `.woff2`-Dateien in diesem Ordner ab. Danach können in `assets/css/style.css` passende `@font-face`-Regeln ergänzt und die CSS-Variablen `--serif` und `--sans` auf die lokalen Font-Familien umgestellt werden.
+
+Bitte keine externen Google-Fonts-URLs einbinden und keine Fontdateien ohne geklärte Lizenz committen.

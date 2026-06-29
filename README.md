@@ -8,7 +8,7 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 /
   index.html                    # Startseite
   buecher.html                  # Bücherübersicht mit Leseproben
-  autorinnen.html               # Manuskripteinreichung über Netlify Forms
+  autorinnen.html               # Manuskripteinreichung per JavaScript an Netlify Function
   admin/
     index.html                  # Decap-CMS-Adminbereich unter /admin/
     config.yml                  # CMS-Konfiguration für Netlify Identity + Git Gateway
@@ -21,14 +21,17 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
   sitemap.xml                   # Sitemap mit den wichtigsten Seiten
   .nojekyll                     # Liefert Dateien in GitHub Pages unverändert aus
   assets/
-    css/style.css               # Gestaltung, lokale Font-Einbindung und responsive Layouts
-    fonts/                      # Lokale WOFF2-Schriftdateien für Inter und Playfair Display
-      README.md                 # Liste der hochzuladenden Schriftdateien
-    js/main.js                  # Mobile Navigation und Buch-Rendering
+    css/style.css               # Gestaltung, Systemschrift-Fallbacks und responsive Layouts
+    fonts/                      # Optionaler Ablageort für spätere lokale WOFF2-Dateien
+      README.md                 # Hinweise zur späteren lokalen Schrifteinbindung
+    js/main.js                  # Mobile Navigation, Buch-Rendering und Formularversand
     images/
       README.md                 # Hinweise für spätere Bilder
       hoenscheidt-publishing-logo.png # Firmenlogo, später manuell hochladen
       uploads/.gitkeep          # Zielordner für CMS-Coveruploads
+  netlify/functions/            # Netlify Functions für Einreichung und Löschung
+  netlify.toml                   # Minimale Netlify-Konfiguration für Functions
+  package.json                   # Dependencies für Netlify Functions
 ```
 
 ## Inhalte ändern
@@ -57,27 +60,34 @@ Einladungs-, Passwort-Reset-, E-Mail-Bestätigungs- und E-Mail-Änderungslinks v
 
 Nach Änderungen an dieser Callback-Seite oder an der Weiterleitungslogik ist ein neuer Netlify-Deploy nötig, damit die Netlify-Domain `https://hoenscheidt-publishing-admin.netlify.app/` die aktuelle Version ausliefert.
 
-## Lokale Schriftarten
+## Schriftarten
 
-Externe Google-Fonts-Links wurden aus den öffentlichen HTML-Seiten entfernt. Die Website ist in `assets/css/style.css` stattdessen auf lokale `@font-face`-Regeln vorbereitet und verwendet für Überschriften weiterhin Playfair Display sowie für Fließtext Inter, jeweils mit sicheren Fallback-Schriften.
+Externe Google-Fonts-Links wurden aus den öffentlichen HTML- und CSS-Dateien entfernt. Die Website verwendet derzeit ausschließlich datenschutzfreundliche System-Fallbacks: Überschriften nutzen `Georgia`, `"Times New Roman"`, `serif`; Fließtext nutzt `Arial`, `Helvetica`, `sans-serif`.
 
-Bitte laden Sie die folgenden echten WOFF2-Dateien nach `assets/fonts/` hoch; es wurden bewusst keine leeren oder falschen Binärdateien angelegt:
+Der Ordner `assets/fonts/` ist nur für eine spätere lokale Schrifteinbindung vorbereitet. Legen Sie dort nur echte, lizenzrechtlich geklärte `.woff2`-Dateien ab und ergänzen Sie danach passende `@font-face`-Regeln in `assets/css/style.css`. Es wurden bewusst keine Fontdateien erzeugt, heruntergeladen oder committet.
 
-- `inter-regular.woff2`
-- `inter-medium.woff2`
-- `inter-semibold.woff2`
-- `inter-bold.woff2`
-- `playfair-display-semibold.woff2`
-- `playfair-display-bold.woff2`
-
-Nach der Umstellung darf die Datenschutzerklärung keine externe Verbindung zu Google Fonts mehr behaupten. Der entsprechende Abschnitt in `datenschutz.html` ist bereits auf lokale Schriftauslieferung umgestellt und weiterhin mit `[RECHTLICH PRÜFEN]` markiert.
+Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten Schrift-Fallbacks und bleibt mit `[RECHTLICH PRÜFEN]` markiert.
 
 ## Firmenlogo und Manuskripteinreichungen
 
 - Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Der vorbereitete Logo-Bereich ist im Code mit `<!-- Hier muss das Logo rein -->` markiert; bis zum Upload bleibt der Header-Bereich als neutraler Platzhalter ohne sichtbaren Ersatztext frei.
-- Manuskripteinreichungen aus `autorinnen.html` werden über Netlify Forms verarbeitet und erscheinen im Netlify-Dashboard unter **Forms** für das Projekt `https://hoenscheidt-publishing-admin.netlify.app/`.
-- Abgelehnte oder abgelaufene Einreichungen müssen regelmäßig manuell im Netlify-Dashboard gelöscht werden, insbesondere hochgeladene Manuskriptdateien.
+- Die öffentliche Website bleibt GitHub Pages unter `https://hoenscheidt-publishing.de`. Die Domain soll nicht auf Netlify umziehen.
+- Adminbereich, Decap CMS, Netlify Identity, Netlify Functions und Netlify Blobs laufen weiterhin im Hintergrund über das Netlify-Projekt `https://hoenscheidt-publishing-admin.netlify.app/`.
+- Das Formular in `autorinnen.html` bleibt für Besucher auf `https://hoenscheidt-publishing.de/autorinnen.html` und sendet die Daten per JavaScript im Hintergrund an die Function `/.netlify/functions/manuskript-einreichung`. Es gibt keine Besucher-Weiterleitung auf eine `netlify.app`-Adresse.
+- Einreichungen werden nicht in GitHub gespeichert. Manuskriptdateien werden im Netlify-Blob-Store `manuscript-files` mit zufälliger UUID gespeichert; Metadaten werden getrennt im Store `manuscript-metadata` abgelegt. Es wird keine öffentliche Download-URL erzeugt.
+- Eingegangene Daten prüfen Sie im Netlify-Dashboard des Admin-Projekts unter **Blobs** beziehungsweise über geschützte interne Tools, nicht über GitHub und nicht über Netlify Forms.
+- Die Function `loesche-abgelaufene-manuskripte` läuft geplant mit `@daily` und löscht Einreichungen nach dem gespeicherten Löschdatum von 60 Tagen. Kontrollieren Sie im Netlify-Dashboard regelmäßig, ob geplante Functions erfolgreich ausgeführt werden und ob alte Blobs tatsächlich entfernt wurden.
+- Fehler beim Formular erkennen Besucher am Statusbereich direkt unter dem Absende-Button. In Netlify prüfen Sie zusätzlich die Function-Logs, die bewusst keine personenbezogenen Daten ausgeben sollen.
 - Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
+
+### Netlify-Deploy-Einstellungen für Functions
+
+- Repository mit Netlify verbunden lassen; öffentliche Auslieferung bleibt dennoch GitHub Pages.
+- Build command: `echo "Building Netlify Functions"`
+- Publish directory: `.`
+- Functions directory: `netlify/functions`
+- Keine Secrets oder Zugangsdaten im Repository speichern.
+- Nach dem Merge einen Netlify-Deploy auslösen, damit die Functions und Dependencies (`@netlify/blobs`, `@netlify/functions`, `busboy`) installiert werden.
 
 ## Buchcover und Bilder ändern
 
@@ -101,7 +111,7 @@ Der datensparsame Plausible-Tracking-Code ist direkt im `<head>`-Bereich aller H
 
 ## Rechtlicher Hinweis
 
-`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, lokale Schriftauslieferung, Netlify Forms, Manuskripteinreichungen und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
+`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, systembasierte Schrift-Fallbacks, Netlify Functions, Netlify Blobs, Manuskripteinreichungen und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
 
 ## Nächste Schritte
 
