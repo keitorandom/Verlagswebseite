@@ -1,129 +1,211 @@
 <!doctype html>
 <html lang="de">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hönscheidt Publishing | Unabhängiger Verlag für Literatur mit Charakter</title>
-  <meta name="description" content="Hönscheidt Publishing steht für eigenständige Literatur, kreative Perspektiven und Bücher, die nachwirken.">
-  <meta property="og:title" content="Hönscheidt Publishing">
-  <meta property="og:description" content="Unabhängiger Verlag für eigenständige Literatur, kreative Perspektiven und Bücher mit Charakter.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hoenscheidt-publishing.de/">
-  <meta property="og:image" content="https://hoenscheidt-publishing.de/assets/images/social-sharing-placeholder.jpg">
-  <meta property="og:image:alt" content="[BITTE ERSETZEN] Social-Sharing-Bild von Hönscheidt Publishing">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script>
-    (function () {
-      var callbackTokens = ['invite_token', 'recovery_token', 'confirmation_token', 'email_change_token'];
-      var hash = window.location.hash;
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Hönscheidt Publishing | Unabhängiger Verlag für Literatur mit Charakter
+    </title>
+    <meta
+      name="description"
+      content="Hönscheidt Publishing steht für eigenständige Literatur, kreative Perspektiven und Bücher, die nachwirken."
+    />
+    <meta property="og:title" content="Hönscheidt Publishing" />
+    <meta
+      property="og:description"
+      content="Unabhängiger Verlag für eigenständige Literatur, kreative Perspektiven und Bücher mit Charakter."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hoenscheidt-publishing.de/" />
+    <meta
+      property="og:image"
+      content="https://hoenscheidt-publishing.de/assets/images/social-sharing-placeholder.jpg"
+    />
+    <meta
+      property="og:image:alt"
+      content="[BITTE ERSETZEN] Social-Sharing-Bild von Hönscheidt Publishing"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script>
+      (function () {
+        var callbackTokens = [
+          "invite_token",
+          "recovery_token",
+          "confirmation_token",
+          "email_change_token",
+        ];
+        var hash = window.location.hash;
 
-      if (!hash) {
-        return;
-      }
+        if (!hash) {
+          return;
+        }
 
-      var params = new URLSearchParams(hash.slice(1));
-      var hasIdentityCallback = callbackTokens.some(function (tokenName) {
-        return params.has(tokenName);
-      });
+        var params = new URLSearchParams(hash.slice(1));
+        var hasIdentityCallback = callbackTokens.some(function (tokenName) {
+          return params.has(tokenName);
+        });
 
-      if (hasIdentityCallback) {
-        window.location.replace('/auth-callback.html' + hash);
-      }
-    })();
-  </script>
-<!-- Privacy-friendly analytics by Plausible -->
-<script async src="https://plausible.io/js/pa-yvF1Fa0au-Iex7ikJMIqC.js"></script>
-<script>
-  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-  plausible.init()
-</script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Zum Inhalt springen</a>
-  <header class="site-header" data-header>
-    <div class="container header-inner">
-      <!-- Hier muss das Logo rein -->
-      <a class="site-logo-placeholder" href="index.html" aria-label="Zur Startseite"></a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
-        <span class="nav-toggle-line" aria-hidden="true"></span>
-        <span class="sr-only">Navigation öffnen</span>
-      </button>
-      <nav class="site-nav" id="site-navigation" aria-label="Hauptnavigation">
-        <a href="index.html" aria-current="page">Startseite</a>
-        <a href="buecher.html">Bücher</a>
-        <a href="#verlag">Über den Verlag</a>
-        <a href="autorinnen.html">Für Autor:innen</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-    </div>
-  </header>
+        if (hasIdentityCallback) {
+          window.location.replace("/auth-callback.html" + hash);
+        }
+      })();
+    </script>
+    <!-- Privacy-friendly analytics by Plausible -->
+    <script
+      async
+      src="https://plausible.io/js/pa-yvF1Fa0au-Iex7ikJMIqC.js"
+    ></script>
+    <script>
+      ((window.plausible =
+        window.plausible ||
+        function () {
+          (plausible.q = plausible.q || []).push(arguments);
+        }),
+        (plausible.init =
+          plausible.init ||
+          function (i) {
+            plausible.o = i || {};
+          }));
+      plausible.init();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <header class="site-header" data-header>
+      <div class="container header-inner">
+        <!-- Hier muss das Logo rein -->
+        <a
+          class="site-logo-placeholder"
+          href="index.html"
+          aria-label="Zur Startseite"
+        ></a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-navigation"
+        >
+          <span class="nav-toggle-line" aria-hidden="true"></span>
+          <span class="sr-only">Navigation öffnen</span>
+        </button>
+        <nav class="site-nav" id="site-navigation" aria-label="Hauptnavigation">
+          <a href="index.html" aria-current="page">Startseite</a>
+          <a href="buecher.html">Bücher</a>
+          <a href="#verlag">Über den Verlag</a>
+          <a href="autorinnen.html">Für Autor:innen</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
+    </header>
 
-  <main id="main">
-    <section class="hero section">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="eyebrow">Unabhängiger Verlag</p>
-          <h1>Literatur mit Charakter.</h1>
-          <p class="hero-lead">Hönscheidt Publishing steht für eigenständige Literatur, kreative Perspektiven und Bücher, die nachwirken.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#buecher">Veröffentlichungen entdecken</a>
-            <a class="button button-secondary" href="buecher.html">Alle Bücher</a>
+    <main id="main">
+      <section class="hero section">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <p class="eyebrow">Unabhängiger Verlag</p>
+            <h1>Literatur mit Charakter.</h1>
+            <p class="hero-lead">
+              Hönscheidt Publishing steht für eigenständige Literatur, kreative
+              Perspektiven und Bücher, die nachwirken.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#buecher"
+                >Veröffentlichungen entdecken</a
+              >
+              <a class="button button-secondary" href="buecher.html"
+                >Alle Bücher</a
+              >
+            </div>
+          </div>
+          <div class="hero-card" aria-label="Verlagsmotto">
+            <p>
+              „Ein gutes Buch öffnet einen Raum: für Gedanken, Widerspruch und
+              neue Sichtweisen.“
+            </p>
           </div>
         </div>
-        <div class="hero-card" aria-label="Verlagsmotto">
-          <p>„Ein gutes Buch öffnet einen Raum: für Gedanken, Widerspruch und neue Sichtweisen.“</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="buecher" aria-labelledby="books-title">
-      <div class="container">
-        <div class="section-heading section-heading-with-action">
+      <section class="section" id="buecher" aria-labelledby="books-title">
+        <div class="container">
+          <div class="section-heading section-heading-with-action">
+            <div>
+              <p class="eyebrow">Programm</p>
+              <h2 id="books-title">Neueste Veröffentlichungen</h2>
+              <p>
+                Entdecken Sie aktuelle Titel und kommende Veröffentlichungen von
+                Hönscheidt Publishing.
+              </p>
+            </div>
+            <a class="button button-outline" href="buecher.html">Alle Bücher</a>
+          </div>
+          <div
+            class="book-grid book-grid-featured"
+            data-books-target="featured"
+            aria-label="Neueste Veröffentlichungen"
+          >
+            <p class="books-loading">Bücher werden geladen …</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section section-muted"
+        id="verlag"
+        aria-labelledby="about-title"
+      >
+        <div class="container two-column">
           <div>
-            <p class="eyebrow">Programm</p>
-            <h2 id="books-title">Neueste Veröffentlichungen</h2>
-            <p>Entdecken Sie aktuelle Titel und kommende Veröffentlichungen von Hönscheidt Publishing.</p>
+            <p class="eyebrow">Über den Verlag</p>
+            <h2 id="about-title">
+              Hönscheidt Publishing begleitet besondere Stimmen.
+            </h2>
           </div>
-          <a class="button button-outline" href="buecher.html">Alle Bücher</a>
+          <div class="rich-text">
+            <p>
+              Als unabhängiger Verlag legt Hönscheidt Publishing Wert auf
+              sorgfältige Auswahl, klare Gestaltung und eine persönliche
+              Zusammenarbeit mit Autorinnen und Autoren.
+            </p>
+            <p>
+              Das Programm richtet sich an Leserinnen und Leser, die Bücher
+              suchen, die nicht laut sein müssen, um Eindruck zu hinterlassen.
+              Im Mittelpunkt stehen literarische Qualität, eigenständige
+              Perspektiven und ein respektvoller Blick auf die Welt.
+            </p>
+          </div>
         </div>
-        <div class="book-grid book-grid-featured" data-books-target="featured" aria-label="Neueste Veröffentlichungen">
-          <p class="books-loading">Bücher werden geladen …</p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section section-muted" id="verlag" aria-labelledby="about-title">
-      <div class="container two-column">
-        <div>
-          <p class="eyebrow">Über den Verlag</p>
-          <h2 id="about-title">Hönscheidt Publishing begleitet besondere Stimmen.</h2>
+      <section class="section" id="kontakt" aria-labelledby="contact-title">
+        <div class="container contact-box">
+          <p class="eyebrow">Kontakt</p>
+          <h2 id="contact-title">
+            Sie möchten mit dem Verlag in Kontakt treten?
+          </h2>
+          <p>
+            Schreiben Sie künftig an
+            <strong class="placeholder">[E-MAIL-ADRESSE ERGÄNZEN]</strong>.
+            Weitere Kontaktmöglichkeiten, Hinweise zu Manuskripteinreichungen
+            und Presseanfragen werden hier künftig ergänzt.
+          </p>
         </div>
-        <div class="rich-text">
-          <p>Als unabhängiger Verlag legt Hönscheidt Publishing Wert auf sorgfältige Auswahl, klare Gestaltung und eine persönliche Zusammenarbeit mit Autorinnen und Autoren.</p>
-          <p>Das Programm richtet sich an Leserinnen und Leser, die Bücher suchen, die nicht laut sein müssen, um Eindruck zu hinterlassen. Im Mittelpunkt stehen literarische Qualität, eigenständige Perspektiven und ein respektvoller Blick auf die Welt.</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <section class="section" id="kontakt" aria-labelledby="contact-title">
-      <div class="container contact-box">
-        <p class="eyebrow">Kontakt</p>
-        <h2 id="contact-title">Sie möchten mit dem Verlag in Kontakt treten?</h2>
-        <p>Schreiben Sie künftig an <strong class="placeholder">[E-MAIL-ADRESSE ERGÄNZEN]</strong>. Weitere Kontaktmöglichkeiten, Hinweise zu Manuskripteinreichungen und Presseanfragen werden hier künftig ergänzt.</p>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          &copy; <span data-current-year>2026</span> Hönscheidt Publishing. Alle
+          Rechte vorbehalten.
+        </p>
+        <nav aria-label="Rechtliche Links">
+          <a href="impressum.html">Impressum</a>
+          <a href="datenschutz.html">Datenschutz</a>
+          <a href="autorinnen.html">Für Autor:innen</a>
+        </nav>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; <span data-current-year>2026</span> Hönscheidt Publishing. Alle Rechte vorbehalten.</p>
-      <nav aria-label="Rechtliche Links">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
-        <a href="autorinnen.html">Für Autor:innen</a>
-      </nav>
-    </div>
-  </footer>
-  <script src="assets/js/main.js" defer></script>
-</body>
+    </footer>
+    <script src="assets/js/main.js" defer></script>
+  </body>
 </html>
