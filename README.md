@@ -74,7 +74,7 @@ Nach der Umstellung darf die Datenschutzerklärung keine externe Verbindung zu G
 
 ## Firmenlogo und Manuskripteinreichungen
 
-- Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Bis dahin zeigt der Header einen textbasierten Fallback.
+- Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Der vorbereitete Logo-Bereich ist im Code mit `<!-- Hier muss das Logo rein -->` markiert; bis zum Upload bleibt der Header-Bereich als neutraler Platzhalter ohne sichtbaren Ersatztext frei.
 - Manuskripteinreichungen aus `autorinnen.html` werden über Netlify Forms verarbeitet und erscheinen im Netlify-Dashboard unter **Forms** für das Projekt `https://hoenscheidt-publishing-admin.netlify.app/`.
 - Abgelehnte oder abgelaufene Einreichungen müssen regelmäßig manuell im Netlify-Dashboard gelöscht werden, insbesondere hochgeladene Manuskriptdateien.
 - Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
