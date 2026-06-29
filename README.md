@@ -29,7 +29,7 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
       README.md                 # Hinweise für spätere Bilder
       hoenscheidt-publishing-logo.png # Firmenlogo, später manuell hochladen
       uploads/.gitkeep          # Zielordner für CMS-Coveruploads
-  netlify/functions/            # Netlify Functions für Einreichung und Löschung
+  netlify/functions/            # Netlify Function für Manuskripteinreichungen
   netlify.toml                   # Minimale Netlify-Konfiguration für Functions
   package.json                   # Dependencies für Netlify Functions
 ```
@@ -76,7 +76,7 @@ Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten
 - Das Formular in `autorinnen.html` bleibt für Besucher auf `https://hoenscheidt-publishing.de/autorinnen.html` und sendet die Daten per JavaScript im Hintergrund an die Function `/.netlify/functions/manuskript-einreichung`. Es gibt keine Besucher-Weiterleitung auf eine `netlify.app`-Adresse.
 - Einreichungen werden nicht in GitHub gespeichert. Manuskriptdateien werden im Netlify-Blob-Store `manuscript-files` mit zufälliger UUID gespeichert; Metadaten werden getrennt im Store `manuscript-metadata` abgelegt. Es wird keine öffentliche Download-URL erzeugt.
 - Eingegangene Daten prüfen Sie im Netlify-Dashboard des Admin-Projekts unter **Blobs** beziehungsweise über geschützte interne Tools, nicht über GitHub und nicht über Netlify Forms.
-- Die Function `loesche-abgelaufene-manuskripte` läuft geplant mit `@daily` und löscht Einreichungen nach dem gespeicherten Löschdatum von 60 Tagen. Kontrollieren Sie im Netlify-Dashboard regelmäßig, ob geplante Functions erfolgreich ausgeführt werden und ob alte Blobs tatsächlich entfernt wurden.
+- Das gespeicherte Löschdatum liegt 60 Tage nach der Einreichung. Der automatische Löschjob wird erst in einem nächsten PR ergänzt; bis dahin muss die Löschung organisatorisch beziehungsweise manuell kontrolliert werden.
 - Fehler beim Formular erkennen Besucher am Statusbereich direkt unter dem Absende-Button. In Netlify prüfen Sie zusätzlich die Function-Logs, die bewusst keine personenbezogenen Daten ausgeben sollen.
 - Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
 
@@ -87,7 +87,17 @@ Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten
 - Publish directory: `.`
 - Functions directory: `netlify/functions`
 - Keine Secrets oder Zugangsdaten im Repository speichern.
-- Nach dem Merge einen Netlify-Deploy auslösen, damit die Functions und Dependencies (`@netlify/blobs`, `@netlify/functions`, `busboy`) installiert werden.
+- Nach dem Merge einen Netlify-Deploy auslösen, damit die Function und Dependencies (`@netlify/blobs`, `@netlify/functions`, `busboy`) installiert werden.
+- Prüfen, dass die Function-URL `https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung` erreichbar ist und CORS nur `https://hoenscheidt-publishing.de`, `https://www.hoenscheidt-publishing.de` sowie lokale Entwicklungs-Origins zulässt.
+- Das einfache serverseitige Rate Limit erlaubt maximal 3 Einreichungen pro IP-Hash pro Stunde. Es speichert keine rohe IP-Adresse und ist nur eine grundlegende Anti-Spam-Maßnahme, kein vollständiger DDoS-Schutz.
+
+### Formular testen
+
+1. Öffnen Sie `https://hoenscheidt-publishing.de/autorinnen.html` und senden Sie ein Testmanuskript als PDF, DOC oder DOCX unter 8 MB ab. Die Adresse im Browser muss unverändert auf `hoenscheidt-publishing.de/autorinnen.html` bleiben.
+2. Prüfen Sie, dass während der Übermittlung der Absende-Button deaktiviert ist und danach die Erfolgsmeldung direkt unter dem Button erscheint.
+3. Testen Sie eine zu große oder falsche Datei und kontrollieren Sie, dass eine sachliche Fehlermeldung angezeigt wird.
+4. Prüfen Sie im Netlify-Dashboard des Admin-Projekts die Stores `manuscript-files` und `manuscript-metadata`. Manuskripte dürfen nicht in GitHub und nicht über eine öffentliche Download-URL auftauchen.
+5. Testen Sie bei Bedarf lokal mit Netlify Dev über einen erlaubten localhost-Origin.
 
 ## Buchcover und Bilder ändern
 
