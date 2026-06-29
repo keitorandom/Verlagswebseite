@@ -24,15 +24,7 @@
   <header class="site-header" data-header>
     <div class="container header-inner">
       <!-- Hier muss das Logo rein -->
-      <a class="site-logo-placeholder" href="index.html" aria-label="Zur Startseite">
-        <img
-          src="assets/images/hoenscheidt-publishing-logo.png"
-          alt="Hönscheidt Publishing"
-          class="site-logo-image"
-          onload="this.classList.add('is-loaded')"
-          onerror="this.remove()"
-        >
-      </a>
+      <a class="site-logo-placeholder" href="index.html" aria-label="Zur Startseite"></a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
         <span class="nav-toggle-line" aria-hidden="true"></span>
         <span class="sr-only">Navigation öffnen</span>
@@ -58,7 +50,7 @@
 
     <section class="section" aria-labelledby="submission-form-title">
       <div class="container submission-layout">
-        <form class="submission-form" name="manuskript-einreichung" method="post" action="https://hoenscheidt-publishing-admin.netlify.app/autorinnen.html?success=true" data-netlify="true" data-netlify-honeypot="bot-field" enctype="multipart/form-data" data-manuscript-form novalidate>
+        <form class="submission-form" name="manuskript-einreichung" method="post" enctype="multipart/form-data" data-manuscript-form data-endpoint="https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung" novalidate>
           <input type="hidden" name="form-name" value="manuskript-einreichung">
           <p class="honeypot"><label>Nicht ausfüllen: <input name="bot-field" autocomplete="off"></label></p>
           <div class="form-intro">
@@ -81,7 +73,8 @@
           <p id="file-help" class="form-help">Bitte laden Sie genau eine Datei hoch. Erlaubt sind PDF, DOC und DOCX bis maximal 8 MB.</p>
           <p id="file-error" class="form-error" data-file-error role="alert" aria-live="polite"></p>
           <label class="checkbox-label"><input type="checkbox" name="datenschutz-hinweis-gelesen" required> <span>Ich habe die Hinweise zur Verarbeitung meiner Daten im Rahmen der Manuskripteinreichung gelesen.</span></label>
-          <button class="button button-primary" type="submit">Manuskript einreichen</button>
+          <button class="button button-primary" type="submit" data-submit-button>Manuskript einreichen</button>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </form>
 
         <aside class="success-message" data-success-message tabindex="-1" hidden>
