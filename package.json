@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "echo \"Building Netlify Functions\"",
-    "check": "node --check netlify/functions/manuskript-einreichung.mjs && node --check netlify/functions/loesche-abgelaufene-manuskripte.mjs"
+    "build": "npm run check",
+    "check": "node --check assets/js/main.js && node --check netlify/functions/manuskript-einreichung.mjs && node --check netlify/functions/loesche-abgelaufene-manuskripte.mjs"
   },
   "dependencies": {
     "@netlify/blobs": "^9.1.0",

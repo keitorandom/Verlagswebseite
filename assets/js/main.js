@@ -400,7 +400,7 @@ function createElement(tagName, options = {}, text = "") {
 }
 
 // Sonstige Frontend-Logik
-const MAX_MANUSCRIPT_SIZE = 8 * 1024 * 1024;
+const MAX_MANUSCRIPT_SIZE = 4 * 1024 * 1024;
 const ALLOWED_MANUSCRIPT_EXTENSIONS = ["pdf", "doc", "docx"];
 
 function initializeManuscriptForm() {
@@ -443,7 +443,7 @@ function initializeManuscriptForm() {
 
     if (file.size > MAX_MANUSCRIPT_SIZE) {
       const message =
-        "Die Manuskript-Datei ist zu groß. Bitte laden Sie eine Datei mit maximal 8 MB hoch.";
+        "Die Manuskript-Datei ist zu groß. Bitte laden Sie eine Datei mit maximal 4 MB hoch.";
       fileError.textContent = message;
       fileInput.setCustomValidity(message);
       return false;
