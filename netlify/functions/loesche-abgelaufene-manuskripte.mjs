@@ -6,7 +6,7 @@ const LOG_PREFIX = 'manuscript-cleanup';
 
 function anonymizedKey(key) {
   if (typeof key !== 'string' || key.length === 0) return 'unknown-key';
-  return key;
+  return `key-${key.slice(0, 8)}`;
 }
 
 function parseDeleteAfter(metadata) {
@@ -56,28 +56,28 @@ export default async () => {
   const metadataStore = getStore(METADATA_STORE);
   const summary = { checked: 0, deleted: 0, skipped: 0, errors: 0 };
 
-  const { blobs } = await metadataStore.list();
+  for await (const page of metadataStore.list({ paginate: true })) {
+    for (const blob of page.blobs) {
+      const key = blob.key;
 
-  for (const blob of blobs) {
-    const key = blob.key;
+      if (typeof key !== 'string' || key.startsWith('rate-limit/')) {
+        summary.skipped += 1;
+        continue;
+      }
 
-    if (typeof key !== 'string' || key.startsWith('rate-limit/')) {
-      summary.skipped += 1;
-      continue;
-    }
+      try {
+        const metadata = await metadataStore.get(key, { type: 'json' });
+        const result = await deleteExpiredSubmission({ key, metadata, filesStore, metadataStore, now });
 
-    try {
-      const metadata = await metadataStore.get(key, { type: 'json' });
-      const result = await deleteExpiredSubmission({ key, metadata, filesStore, metadataStore, now });
-
-      summary.checked += result.checked;
-      summary.deleted += result.deleted;
-      summary.skipped += result.skipped;
-      summary.errors += result.errors;
-    } catch (error) {
-      console.error(`${LOG_PREFIX}: record processing failed`, { key: anonymizedKey(key) });
-      summary.checked += 1;
-      summary.errors += 1;
+        summary.checked += result.checked;
+        summary.deleted += result.deleted;
+        summary.skipped += result.skipped;
+        summary.errors += result.errors;
+      } catch (error) {
+        console.error(`${LOG_PREFIX}: record processing failed`, { key: anonymizedKey(key) });
+        summary.checked += 1;
+        summary.errors += 1;
+      }
     }
   }
 

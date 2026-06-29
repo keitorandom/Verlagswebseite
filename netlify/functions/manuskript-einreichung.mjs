@@ -9,7 +9,7 @@ const ALLOWED_ORIGINS = new Set([
   'http://localhost:5500',
   'http://127.0.0.1:5500'
 ]);
-const MAX_FILE_SIZE = 8 * 1024 * 1024;
+const MAX_FILE_SIZE = 4 * 1024 * 1024;
 const RATE_LIMIT_ATTEMPTS = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 const ALLOWED_FILES = new Map([
@@ -36,19 +36,15 @@ function corsHeaders(origin) {
   };
 }
 
-function json(statusCode, message, headers = {}) {
-  return {
-    statusCode,
-    headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers },
-    body: JSON.stringify({ message })
-  };
+function json(status, message, headers = {}) {
+  return Response.json({ message }, { status, headers });
 }
 
-function clientIp(event) {
+function clientIp(request) {
   return (
-    event.headers['x-nf-client-connection-ip'] ||
-    event.headers['client-ip'] ||
-    event.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+    request.headers.get('x-nf-client-connection-ip') ||
+    request.headers.get('client-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     'unknown'
   );
 }
@@ -74,9 +70,11 @@ async function checkRateLimit(ip) {
   return true;
 }
 
-function parseMultipart(event) {
+async function parseMultipart(request) {
+  const contentType = request.headers.get('content-type') || '';
+  const body = Buffer.from(await request.arrayBuffer());
+
   return new Promise((resolve, reject) => {
-    const contentType = event.headers['content-type'] || event.headers['Content-Type'] || '';
     if (!contentType.toLowerCase().startsWith('multipart/form-data')) {
       reject(new Error('INVALID_CONTENT_TYPE'));
       return;
@@ -118,7 +116,7 @@ function parseMultipart(event) {
     busboy.on('filesLimit', () => reject(new Error('TOO_MANY_FILES')));
     busboy.on('error', reject);
     busboy.on('finish', () => resolve({ fields, files }));
-    busboy.end(Buffer.from(event.body || '', event.isBase64Encoded ? 'base64' : 'utf8'));
+    busboy.end(body);
   });
 }
 
@@ -139,7 +137,7 @@ function validate(fields, files) {
 
   const file = files[0];
   if (file.limited || file.size > MAX_FILE_SIZE) {
-    return { error: 'Die Manuskript-Datei ist zu groß. Bitte laden Sie eine Datei mit maximal 8 MB hoch.' };
+    return { error: 'Die Manuskript-Datei ist zu groß. Bitte laden Sie eine Datei mit maximal 4 MB hoch.' };
   }
 
   const extension = file.filename?.split('.').pop()?.toLowerCase();
@@ -150,24 +148,24 @@ function validate(fields, files) {
   return { file };
 }
 
-export default async (event) => {
-  const origin = event.headers.origin || event.headers.Origin || '';
+export default async (request) => {
+  const origin = request.headers.get('origin') || '';
   const headers = corsHeaders(origin);
 
-  if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 204, headers, body: '' };
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers });
   }
 
   if (!headers['Access-Control-Allow-Origin']) {
     return json(403, 'Diese Herkunft ist für Einreichungen nicht freigegeben.', headers);
   }
 
-  if (event.httpMethod !== 'POST') {
+  if (request.method !== 'POST') {
     return json(405, 'Diese Anfrage wird nicht unterstützt.', headers);
   }
 
   try {
-    const { fields, files } = await parseMultipart(event);
+    const { fields, files } = await parseMultipart(request);
     const validation = validate(fields, files);
 
     if (validation.spam) {
@@ -178,7 +176,7 @@ export default async (event) => {
       return json(400, validation.error, headers);
     }
 
-    if (!(await checkRateLimit(clientIp(event)))) {
+    if (!(await checkRateLimit(clientIp(request)))) {
       return json(429, 'Zu viele Einreichungsversuche. Bitte versuchen Sie es später erneut.', headers);
     }
 
