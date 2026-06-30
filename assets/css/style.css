@@ -1046,17 +1046,19 @@ h3 {
   .book-grid-count-1,
   .book-grid-count-2 {
     display: flex;
+    flex-wrap: nowrap;
     grid-template-columns: none;
     justify-content: flex-start;
     gap: 1rem;
     width: 100%;
     max-width: 100%;
+    padding-inline: 1rem;
     overflow-x: auto;
     overflow-y: visible;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    scroll-padding-inline: 0;
-    touch-action: pan-y;
+    scroll-padding-inline: 1rem;
+    touch-action: pan-x pan-y;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
@@ -1070,16 +1072,13 @@ h3 {
   .book-grid > .book-card,
   .book-grid-featured > .book-card,
   .book-grid-all > .book-card {
-    flex: 0 0 calc(100% - 32px);
-    min-width: 0;
-    max-width: calc(100% - 32px);
+    flex: 0 0 calc(100% - 2rem);
+    min-width: calc(100% - 2rem);
+    max-width: calc(100% - 2rem);
     scroll-snap-align: start;
     scroll-snap-stop: always;
-  }
-
-  .book-grid-count-1 > .book-card {
-    flex-basis: 100%;
-    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
   }
 
   .book-cover img,
