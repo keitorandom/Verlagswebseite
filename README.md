@@ -1,6 +1,16 @@
 # Hönscheidt Publishing Website
 
-Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publishing**. Die öffentliche Website läuft weiterhin ohne eigenes Backend, ohne Framework, ohne Node.js und ohne Build-Schritt über GitHub Pages. Buchdaten werden zentral in `data/books.json` gepflegt und können zusätzlich über Decap CMS im geschützten Adminbereich bearbeitet werden.
+Statische Website für **Hönscheidt Publishing**. Der Quellcode, die Inhalte und die Versionierung liegen im GitHub-Repository. Die öffentliche Website wird über GitHub Pages unter `https://hoenscheidt-publishing.de` ausgeliefert.
+
+Netlify wird ergänzend für den geschützten CMS- und Funktionsbetrieb genutzt, nicht als öffentliche Hauptauslieferung der Website.
+
+## Architektur
+
+- **GitHub Repository**: Enthält Code, Inhalte, Buchdaten und Versionshistorie.
+- **GitHub Pages**: Liefert die öffentliche Website unter `https://hoenscheidt-publishing.de` aus.
+- **Netlify**: Wird nur für Decap CMS, Netlify Identity, Git Gateway, Netlify Functions und Netlify Blobs für Manuskripteinreichungen verwendet.
+- **STRATO**: Verwaltet Domain und DNS für `hoenscheidt-publishing.de`.
+- **Plausible**: Besucherstatistik ist im aktuellen Code weiterhin eingebunden.
 
 ## Projektstruktur
 
@@ -8,141 +18,179 @@ Statische, responsive Website für den unabhängigen Verlag **Hönscheidt Publis
 /
   index.html                    # Startseite
   buecher.html                  # Bücherübersicht mit Leseproben
-  autorinnen.html               # Manuskripteinreichung per JavaScript an Netlify Function
+  autorinnen.html               # Formularseite für Manuskripteinreichungen
   admin/
-    index.html                  # Decap-CMS-Adminbereich für die Netlify-Admin-Domain
-    config.yml                  # CMS-Konfiguration für Netlify Identity + Git Gateway
+    index.html                  # Decap-CMS-Adminoberfläche für die Netlify-Admin-Domain
+    config.yml                  # CMS-Konfiguration für Netlify Identity und Git Gateway
   data/
     books.json                  # Zentrale Buchdaten
-  impressum.html                # Impressum-Vorlage
-  datenschutz.html              # Datenschutz-Vorlage
+  impressum.html                # Impressum
+  datenschutz.html              # Datenschutzseite
   404.html                      # Fehlerseite für GitHub Pages
   robots.txt                    # Hinweise für Suchmaschinen
-  sitemap.xml                   # Sitemap mit den wichtigsten Seiten
+  sitemap.xml                   # Sitemap
   .nojekyll                     # Liefert Dateien in GitHub Pages unverändert aus
   assets/
-    css/style.css               # Gestaltung, Systemschrift-Fallbacks und responsive Layouts
-    fonts/                      # Optionaler Ablageort für spätere lokale WOFF2-Dateien
-      README.md                 # Hinweise zur späteren lokalen Schrifteinbindung
-    js/main.js                  # Mobile Navigation, Buch-Rendering und Formularversand
-    images/
-      README.md                 # Hinweise für spätere Bilder
-      hoenscheidt-publishing-logo.png # Firmenlogo, später manuell hochladen
-      uploads/.gitkeep          # Zielordner für CMS-Coveruploads
-  netlify/functions/            # Netlify Functions für Manuskripteinreichungen und tägliche Löschung
-  netlify.toml                   # Minimale Netlify-Konfiguration für Functions
-  package.json                   # Dependencies für Netlify Functions
+    css/style.css               # Gestaltung und responsive Layouts
+    fonts/README.md             # Hinweise für mögliche spätere lokale Webfonts
+    js/main.js                  # Navigation, Buch-Rendering und Formularversand
+    images/                     # Bilder und CMS-Uploads
+  netlify/functions/
+    manuskript-einreichung.mjs              # Formularannahme und Blob-Speicherung
+    loesche-abgelaufene-manuskripte.mjs     # Tägliche Löschfunktion
+  netlify.toml                   # Netlify-Konfiguration für Checks und Functions
+  package.json                   # Scripts und Dependencies für Netlify Functions
 ```
 
 ## Inhalte ändern
 
-- Allgemeine Texte auf der Startseite bearbeiten Sie direkt in `index.html`.
+- Allgemeine Texte auf der Startseite werden direkt in `index.html` bearbeitet.
 - Buchdaten werden zentral in `data/books.json` gespeichert.
 - Die Startseite zeigt im Bereich „Neueste Veröffentlichungen“ automatisch maximal drei Bücher, bei denen `featured` aktiviert ist.
-- `buecher.html` zeigt automatisch alle Bücher aus `data/books.json` inklusive Leseprobe.
-- Der Link „Mehr erfahren“ führt automatisch zur passenden Buchkarte und Leseprobe auf `buecher.html`, zum Beispiel `buecher.html#vers-versa-und-vision`.
-- E-Mail-Adressen und rechtliche Angaben müssen in `index.html`, `impressum.html` und `datenschutz.html` angepasst werden.
+- `buecher.html` zeigt die Bücher aus `data/books.json` inklusive Leseproben.
+- Der Link „Mehr erfahren“ führt zur passenden Buchkarte auf `buecher.html`, zum Beispiel `buecher.html#vers-versa-und-vision`.
+- Rechtliche Angaben müssen in `impressum.html` und `datenschutz.html` gepflegt und geprüft werden.
 
-## Decap CMS mit Netlify Identity und Git Gateway einrichten
+## Adminbereich und CMS
 
-1. Öffnen Sie Ihr mit dem GitHub-Repository verbundenes Projekt in Netlify und aktivieren Sie **Netlify Identity**.
-2. Stellen Sie die Registrierung in den Identity-Einstellungen auf **Invite only**, damit sich nur eingeladene Personen anmelden können.
-3. Aktivieren Sie in Netlify **Git Gateway**, damit Decap CMS Änderungen als Commits in den Branch `main` schreiben kann.
-4. Öffnen Sie den funktionsfähigen Adminbereich ausschließlich unter `https://hoenscheidt-publishing-admin.netlify.app/admin/`.
-5. Melden Sie sich an und fügen Sie Bücher über die CMS-Maske hinzu oder bearbeiten Sie bestehende Einträge.
+Der funktionierende Adminbereich ist ausschließlich:
 
-Hinweis: Nach dem Speichern im CMS erzeugt Git Gateway einen Commit im Repository. Die öffentliche Website wird erst sichtbar aktualisiert, nachdem GitHub Pages diesen neuen Commit veröffentlicht hat.
+`https://hoenscheidt-publishing-admin.netlify.app/admin/`
 
+`https://hoenscheidt-publishing.de/admin/` ist nicht der maßgebliche Netlify-Adminbereich. Die öffentliche Domain läuft über GitHub Pages. Deshalb erfolgt der CMS-Login über die Netlify-Adresse des Admin-Projekts.
+
+Für den Betrieb des Adminbereichs werden im Netlify-Projekt benötigt:
+
+1. **Netlify Identity** für den Login.
+2. Registrierung auf **Invite only**, damit nur eingeladene Personen Zugriff erhalten.
+3. **Git Gateway**, damit Decap CMS Änderungen als Commits in den Branch `main` schreiben kann.
+4. Decap CMS unter `https://hoenscheidt-publishing-admin.netlify.app/admin/`.
+
+Nach dem Speichern im CMS erzeugt Git Gateway einen Commit im Repository. Die öffentliche Website wird sichtbar aktualisiert, sobald GitHub Pages den neuen Commit veröffentlicht hat.
 
 ## Netlify Identity Callback
 
-Einladungs-, Passwort-Reset-, E-Mail-Bestätigungs- und E-Mail-Änderungslinks von Netlify Identity werden automatisch über `auth-callback.html` verarbeitet. Falls ein Netlify-E-Mail-Link zunächst auf die Startseite zeigt, erkennt `index.html` die Identity-Tokens im URL-Hash und leitet inklusive unverändertem Hash an `/auth-callback.html` weiter.
+Einladungs-, Passwort-Reset-, E-Mail-Bestätigungs- und E-Mail-Änderungslinks von Netlify Identity werden über `auth-callback.html` verarbeitet.
+
+Falls ein Netlify-E-Mail-Link zunächst auf die Startseite zeigt, erkennt `index.html` die Identity-Tokens im URL-Hash und leitet inklusive Hash an `/auth-callback.html` weiter.
 
 Nach Änderungen an dieser Callback-Seite oder an der Weiterleitungslogik ist ein neuer Netlify-Deploy nötig, damit die Netlify-Domain `https://hoenscheidt-publishing-admin.netlify.app/` die aktuelle Version ausliefert.
 
-## Schriftarten
+## Manuskripteinreichung
 
-Externe Google-Fonts-Links wurden aus den öffentlichen HTML- und CSS-Dateien entfernt. Die Website verwendet derzeit ausschließlich datenschutzfreundliche System-Fallbacks: Überschriften nutzen `Georgia`, `"Times New Roman"`, `serif`; Fließtext nutzt `Arial`, `Helvetica`, `sans-serif`.
+- Formularseite: `https://hoenscheidt-publishing.de/autorinnen.html`
+- Besucherinnen und Besucher bleiben beim Absenden auf der GitHub-Pages-Seite.
+- Das Formular sendet im Hintergrund an die Netlify Function `manuskript-einreichung`.
+- Die aktuell konfigurierte Function-URL lautet `https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung`.
+- Dateien werden nicht in GitHub gespeichert.
+- Manuskriptdateien und Metadaten werden getrennt in Netlify Blobs gespeichert.
+- Es gibt keine öffentliche Download-URL für eingereichte Manuskripte.
+- Zulässige Dateitypen: PDF, DOC, DOCX.
+- Maximale Dateigröße: 4 MB.
+- Das einfache serverseitige Rate-Limit erlaubt maximal 3 Einreichungen pro IP-Hash pro Stunde.
+- Das Rate-Limit speichert keine rohe IP-Adresse und ist ein Basisschutz gegen Missbrauch. Es ist kein vollständiger DDoS-Schutz.
 
-Der Ordner `assets/fonts/` ist nur für eine spätere lokale Schrifteinbindung vorbereitet. Legen Sie dort nur echte, lizenzrechtlich geklärte `.woff2`-Dateien ab und ergänzen Sie danach passende `@font-face`-Regeln in `assets/css/style.css`. Es wurden bewusst keine Fontdateien erzeugt, heruntergeladen oder committet.
+### Speicherung in Netlify Blobs
 
-Der entsprechende Abschnitt in `datenschutz.html` beschreibt die systembasierten Schrift-Fallbacks und bleibt mit `[RECHTLICH PRÜFEN]` markiert.
+Die Function `manuskript-einreichung` speichert Manuskriptdateien im Blob-Store `manuscript-files`. Zugehörige Metadaten werden getrennt im Blob-Store `manuscript-metadata` gespeichert.
 
-## Firmenlogo
+Die eingereichten Dateien werden nicht über GitHub oder GitHub Pages bereitgestellt. Prüfung und Verwaltung erfolgen über das Netlify-Dashboard beziehungsweise geschützte interne Werkzeuge.
 
-- Das Firmenlogo muss später manuell unter `assets/images/hoenscheidt-publishing-logo.png` hochgeladen werden. Der vorbereitete Logo-Bereich ist im Code mit `<!-- Hier muss das Logo rein -->` markiert; bis zum Upload bleibt der Header-Bereich als neutraler Platzhalter ohne sichtbaren Ersatztext frei.
+## Löschung eingereichter Manuskripte
 
-## Manuskripteinreichungen und Löschung
+Die Scheduled Function `loesche-abgelaufene-manuskripte` läuft täglich.
 
-- Die öffentliche Website bleibt GitHub Pages unter `https://hoenscheidt-publishing.de`. Die Domain soll nicht auf Netlify umziehen.
-- Adminbereich, Decap CMS, Netlify Identity, Git Gateway, Netlify Functions und Netlify Blobs laufen weiterhin im Hintergrund über das Netlify-Projekt `https://hoenscheidt-publishing-admin.netlify.app/`. Der Adminbereich ist unter `https://hoenscheidt-publishing-admin.netlify.app/admin/` erreichbar; die öffentliche Website bleibt GitHub Pages.
-- Das Formular in `autorinnen.html` bleibt für Besucher auf `https://hoenscheidt-publishing.de/autorinnen.html` und sendet die Daten per JavaScript im Hintergrund an die Function `/.netlify/functions/manuskript-einreichung`. Es gibt keine Besucher-Weiterleitung auf eine `netlify.app`-Adresse.
-- Das Uploadlimit beträgt sichtbar und technisch 4 MB; akzeptiert werden weiterhin PDF, DOC und DOCX.
-- Einreichungen werden nicht in GitHub gespeichert. Manuskriptdateien werden im Netlify-Blob-Store `manuscript-files` mit zufälliger UUID gespeichert; Metadaten werden getrennt im Store `manuscript-metadata` abgelegt.
-- Es werden keine öffentlichen Download-Links oder öffentlichen Routen zum Abruf von Manuskriptdateien erzeugt. Eingegangene Daten prüfen Sie im Netlify-Dashboard des Admin-Projekts unter **Blobs** beziehungsweise über geschützte interne Tools, nicht über GitHub und nicht über Netlify Forms.
-- Das gespeicherte Löschdatum liegt 60 Tage nach der Einreichung. Die Scheduled Function `loesche-abgelaufene-manuskripte` läuft täglich über Netlify und löscht Einreichungen, deren gespeichertes Löschdatum eindeutig abgelaufen ist, aus `manuscript-files` und `manuscript-metadata`.
-- Einreichungen ohne Löschdatum oder mit ungültigem Löschdatum werden nicht automatisch gelöscht; der Löschjob schreibt dafür nur technische Logs ohne Namen, E-Mail-Adressen, Manuskripttitel oder andere personenbezogene Angaben.
-- Der Löschjob sollte regelmäßig im Netlify-Dashboard kontrolliert werden. Prüfen Sie dort insbesondere, ob die Scheduled Function registriert ist, täglich ausgeführt wird und keine technischen Fehler meldet.
-- Bei Interesse an einer Zusammenarbeit müssen Daten, Fristen, Kontaktaufnahme und weitere Aufbewahrung organisatorisch manuell geprüft werden. Der Status `neu` wird durch den Löschjob nicht verändert, solange das Löschdatum noch nicht erreicht ist.
-- Rechtliche Texte und tatsächliche Löschprozesse müssen weiterhin rechtlich geprüft werden. Die Texte zur Manuskripteinreichung und die Ergänzungen in `datenschutz.html` sind mit `[RECHTLICH PRÜFEN]` markiert und müssen vor Veröffentlichung rechtlich geprüft werden.
-- Fehler beim Formular erkennen Besucher am Statusbereich direkt unter dem Absende-Button. In Netlify prüfen Sie zusätzlich die Function-Logs, die bewusst keine personenbezogenen Daten ausgeben sollen.
+Sie prüft die gespeicherten Metadaten und löscht Manuskriptdateien sowie zugehörige Metadaten nach Ablauf des gespeicherten Löschdatums aus den Netlify-Blob-Stores `manuscript-files` und `manuscript-metadata`.
 
-### Netlify-Deploy-Einstellungen für Functions
+Einträge ohne gültiges Löschdatum werden nicht automatisch gelöscht. Die Function schreibt dafür technische Logs ohne Namen, E-Mail-Adressen, Manuskripttitel oder andere bewusst ausgegebene personenbezogene Inhalte.
 
-- Repository mit Netlify verbunden lassen; öffentliche Auslieferung bleibt dennoch GitHub Pages.
+Die Löschfunktion sollte regelmäßig im Netlify-Dashboard kontrolliert werden. Prüfen Sie insbesondere, ob die Scheduled Function registriert ist, täglich ausgeführt wird und keine technischen Fehler meldet.
+
+Die rechtliche Ausgestaltung von Speicherdauer und Löschprozessen sollte zusätzlich geprüft werden.
+
+## Netlify Deploy und Checks
+
+Netlify führt beim Deploy `npm run check` aus.
+
+Dabei laufen Syntaxprüfungen für:
+
+- `assets/js/main.js`
+- `netlify/functions/manuskript-einreichung.mjs`
+- `netlify/functions/loesche-abgelaufene-manuskripte.mjs`
+
+Aktuelle Netlify-Einstellungen:
+
 - Build command: `npm run check`
 - Publish directory: `.`
 - Functions directory: `netlify/functions`
-- Keine Secrets oder Zugangsdaten im Repository speichern.
-- Nach dem Merge einen Netlify-Deploy auslösen, damit `npm run check` die JavaScript-Syntax der öffentlichen Datei und der Functions prüft und die Dependencies (`@netlify/blobs`, `@netlify/functions`, `busboy`) installiert werden.
-- Prüfen, dass die Function-URL `https://hoenscheidt-publishing-admin.netlify.app/.netlify/functions/manuskript-einreichung` erreichbar ist und CORS nur `https://hoenscheidt-publishing.de`, `https://www.hoenscheidt-publishing.de` sowie lokale Entwicklungs-Origins zulässt.
-- Prüfen, dass die Scheduled Function `loesche-abgelaufene-manuskripte` im Netlify-Dashboard als täglicher Job registriert ist. Function-Logs finden Sie im Netlify-Dashboard des Admin-Projekts unter **Functions** → jeweilige Function → **Logs** beziehungsweise in den Deploy-/Runtime-Logs.
-- Das einfache serverseitige Rate Limit erlaubt maximal 3 Einreichungen pro IP-Hash pro Stunde. Es speichert keine rohe IP-Adresse und ist nur eine grundlegende Anti-Spam-Maßnahme, kein vollständiger DDoS-Schutz.
 
-### Formular testen
+Die Dependencies für die Functions stehen in `package.json`, darunter `@netlify/blobs`, `@netlify/functions` und `busboy`.
 
-1. Öffnen Sie `https://hoenscheidt-publishing.de/autorinnen.html` und senden Sie ein Testmanuskript als PDF, DOC oder DOCX unter 4 MB ab. Die Adresse im Browser muss unverändert auf `hoenscheidt-publishing.de/autorinnen.html` bleiben.
-2. Prüfen Sie, dass während der Übermittlung der Absende-Button deaktiviert ist und danach die Erfolgsmeldung direkt unter dem Button erscheint.
-3. Testen Sie eine zu große oder falsche Datei und kontrollieren Sie, dass eine sachliche Fehlermeldung angezeigt wird.
-4. Prüfen Sie im Netlify-Dashboard des Admin-Projekts die Stores `manuscript-files` und `manuscript-metadata`. Manuskripte dürfen nicht in GitHub und nicht über eine öffentliche Download-URL auftauchen.
-5. Testen Sie bei Bedarf lokal mit Netlify Dev über einen erlaubten localhost-Origin.
+## Testanleitung
 
-### Checkliste nach Merge
+### Öffentliche Website
 
-1. Netlify-Deploy nach Merge prüfen
-2. Function `manuskript-einreichung` testen
-3. Scheduled Function im Netlify-Dashboard prüfen
-4. Testeinreichung nach Abschluss manuell entfernen
-5. Logs auf technische Fehler prüfen
+- GitHub-Pages-Deploy prüfen.
+- Startseite unter `https://hoenscheidt-publishing.de` öffnen.
+- Bücherseite öffnen.
+- „Mehr erfahren“-Links testen.
+- Leseproben testen.
 
-## Buchcover und Bilder ändern
+### Admin
 
-Coverbilder, die über Decap CMS hochgeladen werden, landen in `assets/images/uploads/`. Wenn ein Coverbild fehlt oder nicht geladen werden kann, zeigt die Website automatisch eine gestaltete Platzhalterfläche mit dem Buchtitel.
+- Netlify Admin öffnen: `https://hoenscheidt-publishing-admin.netlify.app/admin/`
+- Login prüfen.
+- Test-Buch nur mit Testdaten anlegen.
+- Nach dem Test prüfen, ob der CMS-Commit korrekt im Repository angekommen ist.
 
-1. Laden Sie Coverbilder bevorzugt über den Adminbereich hoch.
-2. Nutzen Sie kurze, aussagekräftige Dateinamen.
-3. Hinterlegen Sie später ein Social-Sharing-Bild unter `assets/images/social-sharing-placeholder.jpg` oder passen Sie die Open-Graph-Metadaten in den HTML-Dateien an.
+### Manuskriptformular
 
-## GitHub Pages
+- Kleine harmlose Test-PDF unter 4 MB verwenden.
+- Formular unter `https://hoenscheidt-publishing.de/autorinnen.html` absenden.
+- Prüfen, dass die Browser-URL auf `https://hoenscheidt-publishing.de/autorinnen.html` bleibt.
+- Erfolgsmeldung direkt auf der Formularseite prüfen.
+- Netlify Function Logs der Function `manuskript-einreichung` prüfen.
+- Blob-Stores `manuscript-files` und `manuscript-metadata` prüfen.
+- Testeinreichung anschließend manuell aus Netlify Blobs entfernen.
 
-GitHub Pages ist über den Branch `main` und das Root-Verzeichnis `/(root)` aktiviert. Die Website benötigt keinen Build-Schritt: GitHub veröffentlicht die statischen Dateien direkt aus dem Repository-Root.
+### Löschfunktion
 
-## Eigene Domain bei STRATO verbinden
+- Im Netlify-Dashboard prüfen, ob `loesche-abgelaufene-manuskripte` als Scheduled Function registriert ist.
+- Prüfen, ob die Function täglich läuft.
+- Logs auf technische Fehler prüfen.
 
-Die Domain `hoenscheidt-publishing.de` kann bei STRATO per DNS mit GitHub Pages verbunden werden. Folgen Sie dazu der aktuellen GitHub-Pages-Dokumentation für Apex-Domains und `www`-Subdomains und tragen Sie die erforderlichen DNS-Records im STRATO-Kundenbereich ein.
+## Schriftarten
+
+Der aktuelle Code lädt keine externen Google Fonts. Es werden derzeit Systemschriften verwendet.
+
+Eine externe Google-Font-Verbindung ist nicht vorgesehen. Der Ordner `assets/fonts/` ist nur für eine mögliche spätere lokale Schrifteinbindung vorbereitet. Legen Sie dort nur lizenzrechtlich geklärte lokale Webfont-Dateien ab und ergänzen Sie danach passende CSS-Regeln.
 
 ## Plausible Analytics
 
-Der datensparsame Plausible-Tracking-Code ist direkt im `<head>`-Bereich aller HTML-Seiten im Repository-Root eingebunden (`index.html`, `impressum.html`, `datenschutz.html` und `404.html`). Die Einbindung verwendet das Script `https://plausible.io/js/pa-yvF1Fa0au-Iex7ikJMIqC.js` für die Domain `hoenscheidt-publishing.de`.
+Plausible ist im aktuellen Code weiterhin im `<head>` der öffentlichen HTML-Seiten eingebunden. Die Einbindung verwendet ein Script von `https://plausible.io` für die Domain `hoenscheidt-publishing.de`.
+
+Wenn Plausible künftig entfernt oder geändert wird, müssen die HTML-Dateien und diese README entsprechend angepasst werden.
+
+## GitHub Pages
+
+GitHub Pages ist für die öffentliche Website maßgeblich. Die Website benötigt keinen Build-Schritt für die öffentliche Auslieferung: GitHub Pages veröffentlicht die statischen Dateien aus dem Repository.
+
+## Eigene Domain bei STRATO
+
+Die Domain `hoenscheidt-publishing.de` wird bei STRATO verwaltet und per DNS mit GitHub Pages verbunden. DNS-Änderungen erfolgen im STRATO-Kundenbereich nach der jeweils aktuellen GitHub-Pages-Dokumentation.
 
 ## Rechtlicher Hinweis
 
-`impressum.html` und `datenschutz.html` enthalten bewusst markierte Platzhalter. Beide Seiten müssen vor Veröffentlichung vollständig ergänzt und rechtlich geprüft werden. Dies gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, systembasierte Schrift-Fallbacks, Netlify Functions, Netlify Blobs, Manuskripteinreichungen und mögliche spätere Funktionen wie Kontaktformular, Newsletter oder Tracking.
+`impressum.html` und `datenschutz.html` enthalten rechtlich relevante Inhalte und teilweise markierte Prüfhinweise. Diese Seiten müssen vor Veröffentlichung und nach technischen Änderungen rechtlich geprüft werden.
+
+Das gilt insbesondere für Anbieterkennzeichnung, Verantwortliche, Kontaktangaben, Hosting-Angaben, Plausible Analytics, Netlify Functions, Netlify Blobs, Manuskripteinreichungen, Speicherdauer und Löschprozesse.
 
 ## Nächste Schritte
 
-1. Netlify Identity und Git Gateway vollständig einrichten
-2. Erste Bücher über `https://hoenscheidt-publishing-admin.netlify.app/admin/` pflegen
-3. Impressum und Datenschutz rechtlich ergänzen
-4. STRATO-DNS mit GitHub Pages verbinden
-5. HTTPS in GitHub Pages prüfen oder aktivieren
+1. Netlify Identity und Git Gateway im Admin-Projekt regelmäßig prüfen.
+2. Inhalte und Buchdaten über `https://hoenscheidt-publishing-admin.netlify.app/admin/` pflegen.
+3. GitHub-Pages-Deploy nach CMS-Commits prüfen.
+4. Netlify Function Logs regelmäßig kontrollieren.
+5. Scheduled Function `loesche-abgelaufene-manuskripte` regelmäßig im Netlify-Dashboard kontrollieren.
+6. Testeinreichungen nach Tests manuell aus Netlify Blobs entfernen.
+7. Rechtliche Ausgestaltung von Speicherdauer und Löschprozessen zusätzlich prüfen lassen.
