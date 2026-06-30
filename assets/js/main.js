@@ -76,6 +76,7 @@ async function renderBookSections() {
       target.innerHTML = "";
       target.classList.toggle("book-grid-count-1", visibleBooks.length === 1);
       target.classList.toggle("book-grid-count-2", visibleBooks.length === 2);
+      updateBookSwipeHint(target, visibleBooks.length);
 
       if (!visibleBooks.length) {
         target.append(createMessage("Derzeit sind keine Bücher eingetragen."));
@@ -103,6 +104,21 @@ async function renderBookSections() {
       );
     });
   }
+}
+
+function updateBookSwipeHint(target, bookCount) {
+  let hint = target.nextElementSibling;
+
+  if (!hint?.classList.contains("book-swipe-hint")) {
+    hint = createElement(
+      "p",
+      { className: "book-swipe-hint", ariaHidden: "true" },
+      "← Nach links wischen, um weitere Bücher zu sehen",
+    );
+    target.insertAdjacentElement("afterend", hint);
+  }
+
+  hint.hidden = bookCount <= 1;
 }
 
 // Buchkarten rendern
